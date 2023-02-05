@@ -2,8 +2,8 @@ interface InputsProps {
   name: string
   type?: string
   label?: string
-  state: Record<string, string>
-  setState: React.Dispatch<React.SetStateAction<Record<string, string>>>
+  state: object
+  setState: React.Dispatch<React.SetStateAction<any>>
   value: any
 }
 

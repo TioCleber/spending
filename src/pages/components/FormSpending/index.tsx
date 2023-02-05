@@ -33,8 +33,6 @@ export const FormSpending = () => {
     return localStorage.setItem(month, JSON.stringify(spending))
   }
 
-  console.log(state[`value_${0}`])
-
   return (
     <main>
       <section>
