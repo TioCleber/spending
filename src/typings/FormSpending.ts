@@ -4,6 +4,7 @@ export interface StateProps {
 }
 
 export type Spending = {
-  name: string
-  value: string
+  name?: string
+  value?: string
+  extra_money?: string
 }

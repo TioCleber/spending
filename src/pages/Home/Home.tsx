@@ -27,8 +27,9 @@ export const Home = () => {
                 <>
                   <div>
                     <h3>Olá, {user.fullName}</h3>
+
                     <p>
-                      Seu Salário é de: {formatCurrency(Number(user.spent))}
+                      Você tem: {formatCurrency(Number(user.spent))}
                     </p>
                     <p>Total de gastos: {formatCurrency(totalSpending)}</p>
                   </div>

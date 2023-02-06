@@ -30,6 +30,8 @@ export const FormSpending = () => {
       }
     })
 
+    spending.push({ extra_money: state['extra_money'] || '0' })
+
     return localStorage.setItem(month, JSON.stringify(spending))
   }
 
@@ -37,12 +39,6 @@ export const FormSpending = () => {
     <main>
       <section>
         <Select selected={month} setValue={setMonth} values={months} />
-
-        {month && (
-          <div>
-            <button onClick={handleClick}>+</button>
-          </div>
-        )}
       </section>
 
       {month &&
@@ -67,8 +63,20 @@ export const FormSpending = () => {
             {spendingIndex.length > 1 && (
               <button onClick={() => handleRemove(item)}>Remove</button>
             )}
+
+            {month && index === spendingIndex.length - 1 && (
+              <button onClick={handleClick}>+</button>
+            )}
           </section>
         ))}
+
+      <Inputs
+        name={`extra_money`}
+        label={'Dinheiro extra: '}
+        state={state}
+        setState={setState}
+        value={state[`extra_money`]}
+      />
 
       {state.spending_0 && state.value_0 && (
         <button onClick={() => handleSpending(spendingIndex)}>Adicionar</button>

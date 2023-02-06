@@ -40,7 +40,7 @@ export const ListSpending = () => {
 
                 <li>
                   <p>
-                    De acordo com o seu salário vai sobrar:{' '}
+                    De acordo com o seu dinheiro vai sobrar:{' '}
                     {values.remainingSalary}
                   </p>
                 </li>

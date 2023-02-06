@@ -21,7 +21,9 @@ export const useSpending = () => {
           return acc
         }, 0)
 
-        const remainingSalary = Number(user.spent) - totalValues
+        const extra_money = parseSpending[parseSpending.length - 1].extra_money || 0
+
+        const remainingSalary = Number(user.spent) + Number(extra_money) - totalValues
 
         spendingForMonth.push({
           name: validMonth,
