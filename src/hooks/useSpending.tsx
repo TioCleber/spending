@@ -1,4 +1,5 @@
 import { months } from '../constants/months'
+import { Spending } from '../typings/FormSpending'
 import { SpendingProps } from '../typings/spending'
 import { formatCurrency } from '../utils/formatCurrency'
 import { useProfile } from './useProfile'
@@ -11,10 +12,10 @@ export const useSpending = () => {
 
     months.forEach((validMonth) => {
       const spending = localStorage.getItem(validMonth)
-      const parseSpending = JSON.parse(spending || '[]')
+      const parseSpending: Spending[] = JSON.parse(spending || '[]')
 
       if (parseSpending.length) {
-        const totalValues = parseSpending.reduce((acc: any, curr: any) => {
+        const totalValues = parseSpending.reduce((acc, curr) => {
           acc += Number(curr.value)
 
           return acc
