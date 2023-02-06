@@ -1,39 +1,11 @@
 import { Link } from 'react-router-dom'
 import { Disclosure } from '../../../components/Disclosure'
-import { months } from '../../../constants/months'
+import { useSpending } from '../../../hooks/useSpending'
 import { Spending } from '../../../typings/FormSpending'
 import { formatCurrency } from '../../../utils/formatCurrency'
 
 export const ListSpending = () => {
-  const handleSpending = () => {
-    const spendingForMonth: any[] = []
-
-    months.forEach((validMonth) => {
-      const spending = localStorage.getItem(validMonth)
-      const parseSpending = JSON.parse(spending || '[]')
-
-      if (parseSpending.length) {
-        const totalValues = parseSpending.reduce((acc: any, curr: any) => {
-          acc += Number(curr.value)
-
-          return acc
-        }, 0)
-
-        const remainingSalary = 4100 - totalValues
-
-        spendingForMonth.push({
-          name: validMonth,
-          stores: parseSpending,
-          totalValues: formatCurrency(totalValues),
-          remainingSalary: formatCurrency(remainingSalary),
-        })
-      }
-    })
-
-    return spendingForMonth
-  }
-
-  const spending = handleSpending()
+  const { spending } = useSpending()
 
   return (
     <main>
