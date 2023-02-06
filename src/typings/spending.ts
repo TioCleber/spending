@@ -5,4 +5,5 @@ export interface SpendingProps {
   stores: Spending[]
   totalValues: string,
   remainingSalary: string,
+  extra_money: number
 }

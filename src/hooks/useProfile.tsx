@@ -1,3 +1,4 @@
+import { useMemo, useState } from 'react'
 import { user } from '../constants/initialValues'
 
 interface User {
@@ -6,13 +7,19 @@ interface User {
 }
 
 export const useProfile = () => {
-  const getUSer = localStorage.getItem('user')
+  const [refetch, setRefetch] = useState(false)
 
-  if (getUSer) {
-    const parseUser: User = JSON.parse(getUSer)
+  const profile = useMemo(() => {
+    const getUSer = localStorage.getItem('user')
 
-    return parseUser
-  }
+    if (getUSer) {
+      const parseUser: User = JSON.parse(getUSer)
 
-  return user
+      return parseUser
+    }
+
+    return user
+  }, [refetch])
+
+  return { user: profile, refetch: setRefetch }
 }

@@ -1,3 +1,4 @@
+import { useMemo, useState } from 'react'
 import { months } from '../constants/months'
 import { Spending } from '../typings/FormSpending'
 import { SpendingProps } from '../typings/spending'
@@ -5,9 +6,10 @@ import { formatCurrency } from '../utils/formatCurrency'
 import { useProfile } from './useProfile'
 
 export const useSpending = () => {
-  const user = useProfile()
+  const { user } = useProfile()
+  const [refetch, setRefetch] = useState(false)
 
-  const handleSpending = () => {
+  const spending = useMemo(() => {
     const spendingForMonth: SpendingProps[] = []
 
     months.forEach((validMonth) => {
@@ -21,23 +23,26 @@ export const useSpending = () => {
           return acc
         }, 0)
 
-        const extra_money = parseSpending[parseSpending.length - 1].extra_money || 0
+        const extra_money = parseSpending.reduce((acc, curr) => {
+          acc += Number(curr.extra_money) / parseSpending?.length
 
-        const remainingSalary = Number(user.spent) + Number(extra_money) - totalValues
+          return acc
+        }, 0)
+
+        const remainingSalary = Number(user.spent) + extra_money - totalValues
 
         spendingForMonth.push({
           name: validMonth,
           stores: parseSpending,
           totalValues: formatCurrency(totalValues),
           remainingSalary: formatCurrency(remainingSalary),
+          extra_money,
         })
       }
     })
 
     return spendingForMonth
-  }
-
-  const spending = handleSpending()
+  }, [refetch, user.spent])
 
   const totalSpending = spending.reduce((acc, curr) => {
     const parseValues = curr.stores.reduce((acc, curr) => {
@@ -51,5 +56,5 @@ export const useSpending = () => {
     return acc
   }, 0)
 
-  return { spending, totalSpending }
+  return { spending, totalSpending, refetch: setRefetch }
 }

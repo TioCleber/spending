@@ -4,18 +4,19 @@ import { useProfile } from '../../hooks/useProfile'
 import { useSpending } from '../../hooks/useSpending'
 import { formatCurrency } from '../../utils/formatCurrency'
 import { FormSpending } from '../components/FormSpending'
+import { ListSpending } from '../components/ListSpending'
 import { Register } from '../components/Register'
 
 export const Home = () => {
   const [register, setRegister] = useState(false)
-  const user = useProfile()
-  const { totalSpending, spending } = useSpending()
+  const { user, refetch: refetchProfile } = useProfile()
+  const { totalSpending, spending, refetch: refetchSpending } = useSpending()
 
   const handleClick = () => {
     setRegister(!register)
   }
 
-  const validateUser = !user.fullName || !user.spent ? false : true
+  const validateUser = !user.fullName ? false : true
 
   return (
     <>
@@ -28,9 +29,7 @@ export const Home = () => {
                   <div>
                     <h3>Olá, {user.fullName}</h3>
 
-                    <p>
-                      Você tem: {formatCurrency(Number(user.spent))}
-                    </p>
+                    <p>Você tem: {formatCurrency(Number(user.spent))}</p>
                     <p>Total de gastos: {formatCurrency(totalSpending)}</p>
                   </div>
 
@@ -38,9 +37,21 @@ export const Home = () => {
                 </>
               )}
 
-              {!validateUser && <Register onRegister={setRegister} />}
+              {!validateUser && (
+                <Register
+                  refetchProfile={refetchProfile}
+                  refetchSpending={refetchSpending}
+                  onRegister={setRegister}
+                />
+              )}
 
-              {register && <Register onRegister={setRegister} />}
+              {register && (
+                <Register
+                  refetchProfile={refetchProfile}
+                  refetchSpending={refetchSpending}
+                  onRegister={setRegister}
+                />
+              )}
             </div>
           </Cards>
 
@@ -63,7 +74,11 @@ export const Home = () => {
           </Cards>
         </section>
 
-        <FormSpending />
+        <FormSpending refetch={refetchSpending} />
+
+        <section>
+          <ListSpending spending={spending} />
+        </section>
       </main>
     </>
   )

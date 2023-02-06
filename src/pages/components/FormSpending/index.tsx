@@ -5,7 +5,11 @@ import { Select } from '../../../components/Select'
 import { months } from '../../../constants/months'
 import type { Spending } from '../../../typings/FormSpending'
 
-export const FormSpending = () => {
+interface FormSpendingProps {
+  refetch?: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+export const FormSpending = ({ refetch }: FormSpendingProps) => {
   const [state, setState] = useState<Record<string, string>>({})
   const [month, setMonth] = useState('')
   const [spendingIndex, setSpendingIndex] = useState([0])
@@ -26,11 +30,10 @@ export const FormSpending = () => {
         spending.push({
           name: state[`spending_${item}`],
           value: state[`value_${item}`],
+          extra_money: state['extra_money'] || '0',
         })
       }
     })
-
-    spending.push({ extra_money: state['extra_money'] || '0' })
 
     return localStorage.setItem(month, JSON.stringify(spending))
   }
@@ -70,16 +73,25 @@ export const FormSpending = () => {
           </section>
         ))}
 
-      <Inputs
-        name={`extra_money`}
-        label={'Dinheiro extra: '}
-        state={state}
-        setState={setState}
-        value={state[`extra_money`]}
-      />
+      {month && (
+        <Inputs
+          name={`extra_money`}
+          label={'Dinheiro extra: '}
+          state={state}
+          setState={setState}
+          value={state[`extra_money`]}
+        />
+      )}
 
       {state.spending_0 && state.value_0 && (
-        <button onClick={() => handleSpending(spendingIndex)}>Adicionar</button>
+        <button
+          onClick={() => {
+            handleSpending(spendingIndex)
+            refetch && refetch(oldRefetch => !oldRefetch)
+          }}
+        >
+          Adicionar
+        </button>
       )}
     </main>
   )

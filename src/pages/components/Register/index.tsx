@@ -4,6 +4,8 @@ import { user } from '../../../constants/initialValues'
 
 interface RegisterProps {
   onRegister: React.Dispatch<React.SetStateAction<boolean>>
+  refetchProfile: React.Dispatch<React.SetStateAction<boolean>>
+  refetchSpending: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 interface StateProps {
@@ -11,19 +13,21 @@ interface StateProps {
   spent: string
 }
 
-export const Register = ({ onRegister }: RegisterProps) => {
+export const Register = ({
+  onRegister,
+  refetchProfile,
+  refetchSpending,
+}: RegisterProps) => {
   const [state, setState] = useState<StateProps>(user)
 
   const handleClick = () => {
     onRegister(false)
 
-    if (state.fullName && state.spent) {
-      localStorage.setItem('user', JSON.stringify(state))
+    localStorage.setItem('user', JSON.stringify(state))
 
-      return setState(user)
-    }
+    refetchProfile((oldValue) => !oldValue)
 
-    localStorage.setItem('user', JSON.stringify(user))
+    refetchSpending((oldValue) => !oldValue)
 
     return setState(user)
   }

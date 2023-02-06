@@ -8,9 +8,7 @@ export const Header = () => {
       </div>
 
       <ul>
-        <li>
-          <Link to="/spending">Lista de Gastos</Link>
-        </li>
+        
       </ul>
     </div>
   )

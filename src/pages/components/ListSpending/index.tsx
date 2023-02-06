@@ -1,11 +1,16 @@
 import { Link } from 'react-router-dom'
 import { Disclosure } from '../../../components/Disclosure'
-import { useSpending } from '../../../hooks/useSpending'
+import { useProfile } from '../../../hooks/useProfile'
 import { Spending } from '../../../typings/FormSpending'
+import { SpendingProps } from '../../../typings/spending'
 import { formatCurrency } from '../../../utils/formatCurrency'
 
-export const ListSpending = () => {
-  const { spending } = useSpending()
+interface ListSpendingProps {
+  spending: SpendingProps[]
+}
+
+export const ListSpending = ({ spending }: ListSpendingProps) => {
+  const { user } = useProfile()
 
   return (
     <main>
@@ -38,12 +43,39 @@ export const ListSpending = () => {
                   </li>
                 ))}
 
-                <li>
-                  <p>
-                    De acordo com o seu dinheiro vai sobrar:{' '}
-                    {values.remainingSalary}
-                  </p>
-                </li>
+                {user.spent && (
+                  <li>
+                    <p>
+                      De acordo com o seu dinheiro vai sobrar:{' '}
+                      {values.remainingSalary}
+                    </p>
+
+                    <div>
+                      <ul>
+                        <li>
+                          <span>
+                            Esse valor é composto por encargos de seu
+                            (dinheiro/salário + dinheiro extra - total de gasto)
+                          </span>
+                        </li>
+                        <li>
+                          <span>
+                            Dinheiro/Salário:{' '}
+                            {formatCurrency(Number(user.spent))}
+                          </span>
+                        </li>
+                        <li>
+                          <span>
+                            Dinheiro extra: {formatCurrency(values.extra_money)}
+                          </span>
+                        </li>
+                        <li>
+                          <span>Total de gastos: {values.totalValues}</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </li>
+                )}
               </ul>
             </section>
           </Disclosure>
