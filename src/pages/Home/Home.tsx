@@ -1,4 +1,6 @@
+import { useState } from 'react'
 import { Cards } from '../../components/Cards'
+import { Modal } from '../../components/Modal'
 import { useSpending } from '../../hooks/useSpending'
 import { formatCurrency } from '../../utils/formatCurrency'
 import { FormSpending } from '../components/FormSpending'
@@ -6,13 +8,16 @@ import { ListSpending } from '../components/ListSpending'
 
 export const Home = () => {
   const { totalSpending, spending, refetch } = useSpending()
+  const [open, setOpen] = useState(false)
+
+  const handleClick = () => {
+    setOpen(!open)
+  }
 
   return (
     <>
       <main>
         <section>
-          <FormSpending refetch={refetch} />
-
           <Cards>
             <div>
               <h3>Gastos:</h3>
@@ -32,7 +37,7 @@ export const Home = () => {
               </div>
             </div>
 
-            <button>Adicionar gastos</button>
+            <button onClick={handleClick}>Adicionar gastos</button>
           </Cards>
         </section>
 
@@ -40,6 +45,12 @@ export const Home = () => {
           <ListSpending spending={spending} />
         </section>
       </main>
+
+      {open && (
+        <Modal>
+          <FormSpending refetch={refetch} />
+        </Modal>
+      )}
     </>
   )
 }

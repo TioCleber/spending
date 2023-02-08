@@ -1,4 +1,4 @@
-import { formatCurrency } from "../../utils/formatCurrency"
+import { formatCurrency } from '../../utils/formatCurrency'
 
 interface InputsProps {
   name: string
@@ -17,7 +17,7 @@ export const InputCurrencyValue = ({
   setState,
   value,
 }: InputsProps) => {
-  function getMoney(str: string) {
+  const getMoney = (str: string) => {
     return parseInt(str.replace(/[\D]+/g, ''))
   }
 
