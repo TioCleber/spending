@@ -1,9 +1,11 @@
 import { useState } from 'react'
 
-import { Inputs } from '../../../components/Inputs'
+import { Input } from '../../../components/Inputs/Input'
+import { InputCurrencyValue } from '../../../components/Inputs/InputCurrencyValue'
 import { Select } from '../../../components/Select'
 import { months } from '../../../constants/months'
 import type { Spending } from '../../../typings/FormSpending'
+import { formatCurrency } from '../../../utils/formatCurrency'
 
 interface FormSpendingProps {
   refetch?: React.Dispatch<React.SetStateAction<boolean>>
@@ -47,7 +49,7 @@ export const FormSpending = ({ refetch }: FormSpendingProps) => {
       {month &&
         spendingIndex.map((item, index) => (
           <section key={index}>
-            <Inputs
+            <Input
               name={`spending_${item}`}
               label={'Nome do Gasto: '}
               state={state}
@@ -55,12 +57,12 @@ export const FormSpending = ({ refetch }: FormSpendingProps) => {
               value={state[`spending_${item}`]}
             />
 
-            <Inputs
+            <InputCurrencyValue
               name={`value_${item}`}
               label={'Valor gasto: '}
               state={state}
               setState={setState}
-              value={state[`value_${item}`]}
+              value={formatCurrency(Number(state[`value_${item}`]))}
             />
 
             {spendingIndex.length > 1 && (
@@ -74,12 +76,12 @@ export const FormSpending = ({ refetch }: FormSpendingProps) => {
         ))}
 
       {month && (
-        <Inputs
+        <InputCurrencyValue
           name={`extra_money`}
           label={'Dinheiro extra: '}
           state={state}
           setState={setState}
-          value={state[`extra_money`]}
+          value={formatCurrency(Number(state[`extra_money`]))}
         />
       )}
 
@@ -87,7 +89,7 @@ export const FormSpending = ({ refetch }: FormSpendingProps) => {
         <button
           onClick={() => {
             handleSpending(spendingIndex)
-            refetch && refetch(oldRefetch => !oldRefetch)
+            refetch && refetch((oldRefetch) => !oldRefetch)
           }}
         >
           Adicionar

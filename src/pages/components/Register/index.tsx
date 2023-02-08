@@ -1,6 +1,8 @@
 import { useState } from 'react'
-import { Inputs } from '../../../components/Inputs'
+import { Input } from '../../../components/Inputs/Input'
+import { InputCurrencyValue } from '../../../components/Inputs/InputCurrencyValue'
 import { user } from '../../../constants/initialValues'
+import { formatCurrency } from '../../../utils/formatCurrency'
 
 interface RegisterProps {
   onRegister: React.Dispatch<React.SetStateAction<boolean>>
@@ -32,21 +34,23 @@ export const Register = ({
     return setState(user)
   }
 
+  console.log(state)
+
   return (
     <div>
       <div>
-        <Inputs
+        <Input
           name="fullName"
           state={state}
           setState={setState}
           value={state.fullName}
         />
 
-        <Inputs
+        <InputCurrencyValue
           name="spent"
           state={state}
           setState={setState}
-          value={state.spent}
+          value={formatCurrency(Number(state.spent))}
         />
 
         <button onClick={handleClick}>Salvar</button>

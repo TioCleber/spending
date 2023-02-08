@@ -2,7 +2,7 @@ export const formatCurrency = (value: number) => {
   return Intl.NumberFormat('pt-BR', {
     style: 'currency',
     currency: 'BRL',
-  }).format(value)
+  }).format(value * 0.01 || 0)
 }
 
 export const formatStringCurrency = (value: number) => {

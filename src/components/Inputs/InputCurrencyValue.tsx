@@ -7,7 +7,7 @@ interface InputsProps {
   value: any
 }
 
-export const Inputs = ({
+export const InputCurrencyValue = ({
   name,
   label,
   type,
@@ -15,8 +15,12 @@ export const Inputs = ({
   setState,
   value,
 }: InputsProps) => {
+  function getMoney(str: string) {
+    return parseInt(str.replace(/[\D]+/g, ''))
+  }
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setState({ ...state, [name]: e.target.value })
+    setState({ ...state, [name]: getMoney(e.target.value) })
   }
 
   return (
