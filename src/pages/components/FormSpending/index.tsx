@@ -5,7 +5,6 @@ import { InputCurrencyValue } from '../../../components/Inputs/InputCurrencyValu
 import { Select } from '../../../components/Select'
 import { months } from '../../../constants/months'
 import type { Spending } from '../../../typings/FormSpending'
-import { formatCurrency } from '../../../utils/formatCurrency'
 
 interface FormSpendingProps {
   refetch?: React.Dispatch<React.SetStateAction<boolean>>
@@ -62,7 +61,7 @@ export const FormSpending = ({ refetch }: FormSpendingProps) => {
               label={'Valor gasto: '}
               state={state}
               setState={setState}
-              value={formatCurrency(Number(state[`value_${item}`]))}
+              value={state[`value_${item}`]}
             />
 
             {spendingIndex.length > 1 && (
@@ -81,7 +80,7 @@ export const FormSpending = ({ refetch }: FormSpendingProps) => {
           label={'Dinheiro extra: '}
           state={state}
           setState={setState}
-          value={formatCurrency(Number(state[`extra_money`]))}
+          value={state[`extra_money`]}
         />
       )}
 

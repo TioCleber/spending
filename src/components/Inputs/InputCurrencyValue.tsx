@@ -1,10 +1,12 @@
+import { formatCurrency } from "../../utils/formatCurrency"
+
 interface InputsProps {
   name: string
   type?: string
   label?: string
   state: object
   setState: React.Dispatch<React.SetStateAction<any>>
-  value: any
+  value: string
 }
 
 export const InputCurrencyValue = ({
@@ -29,7 +31,7 @@ export const InputCurrencyValue = ({
 
       <input
         type={type || 'text'}
-        value={value || ''}
+        value={formatCurrency(Number(value)) || ''}
         name={name}
         onChange={handleChange}
       />
