@@ -3,32 +3,16 @@ import { Input } from '../../../components/Inputs/Input'
 import { InputCurrencyValue } from '../../../components/Inputs/InputCurrencyValue'
 import { user } from '../../../constants/initialValues'
 
-interface RegisterProps {
-  onRegister: React.Dispatch<React.SetStateAction<boolean>>
-  refetchProfile: React.Dispatch<React.SetStateAction<boolean>>
-  refetchSpending: React.Dispatch<React.SetStateAction<boolean>>
-}
-
 interface StateProps {
   fullName: string
   spent: string
 }
 
-export const Register = ({
-  onRegister,
-  refetchProfile,
-  refetchSpending,
-}: RegisterProps) => {
+export const Register = () => {
   const [state, setState] = useState<StateProps>(user)
 
   const handleClick = () => {
-    onRegister(false)
-
     localStorage.setItem('user', JSON.stringify(state))
-
-    refetchProfile((oldValue) => !oldValue)
-
-    refetchSpending((oldValue) => !oldValue)
 
     return setState(user)
   }

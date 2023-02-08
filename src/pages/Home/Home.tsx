@@ -1,22 +1,22 @@
-import { useState } from 'react'
+import { useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { Cards } from '../../components/Cards'
 import { useProfile } from '../../hooks/useProfile'
 import { useSpending } from '../../hooks/useSpending'
 import { formatCurrency } from '../../utils/formatCurrency'
 import { FormSpending } from '../components/FormSpending'
 import { ListSpending } from '../components/ListSpending'
-import { Register } from '../components/Register'
 
 export const Home = () => {
-  const [register, setRegister] = useState(false)
-  const { user, refetch: refetchProfile } = useProfile()
+  const { user } = useProfile()
   const { totalSpending, spending, refetch: refetchSpending } = useSpending()
+  const navigate = useNavigate()
 
-  const handleClick = () => {
-    setRegister(!register)
-  }
-
-  const validateUser = !user.fullName ? false : true
+  useEffect(() => {
+    if (!user.fullName) {
+      navigate('/user')
+    }
+  }, [navigate, user.fullName])
 
   return (
     <>
@@ -24,34 +24,14 @@ export const Home = () => {
         <section>
           <Cards>
             <div>
-              {!register && validateUser && (
-                <>
-                  <div>
-                    <h3>Olá, {user.fullName}</h3>
+              <div>
+                <h3>Olá, {user.fullName}</h3>
 
-                    <p>Você tem: {formatCurrency(Number(user.spent))}</p>
-                    <p>Total de gastos: {formatCurrency(totalSpending)}</p>
-                  </div>
+                <p>Você tem: {formatCurrency(Number(user.spent))}</p>
+                <p>Total de gastos: {formatCurrency(totalSpending)}</p>
+              </div>
 
-                  <button onClick={handleClick}>Alterar</button>
-                </>
-              )}
-
-              {!validateUser && (
-                <Register
-                  refetchProfile={refetchProfile}
-                  refetchSpending={refetchSpending}
-                  onRegister={setRegister}
-                />
-              )}
-
-              {register && (
-                <Register
-                  refetchProfile={refetchProfile}
-                  refetchSpending={refetchSpending}
-                  onRegister={setRegister}
-                />
-              )}
+              <Link to="/user">Alterar</Link>
             </div>
           </Cards>
 

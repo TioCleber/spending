@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import { user } from '../constants/initialValues'
 
 interface User {
@@ -7,8 +7,6 @@ interface User {
 }
 
 export const useProfile = () => {
-  const [refetch, setRefetch] = useState(false)
-
   const profile = useMemo(() => {
     const getUSer = localStorage.getItem('user')
 
@@ -19,7 +17,7 @@ export const useProfile = () => {
     }
 
     return user
-  }, [refetch])
+  }, [])
 
-  return { user: profile, refetch: setRefetch }
+  return { user: profile }
 }
