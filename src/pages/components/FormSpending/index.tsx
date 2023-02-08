@@ -30,8 +30,7 @@ export const FormSpending = ({ refetch }: FormSpendingProps) => {
       if (state[`spending_${item}`] && state[`value_${item}`]) {
         spending.push({
           name: state[`spending_${item}`],
-          value: state[`value_${item}`],
-          extra_money: state['extra_money'] || '0',
+          value: state[`value_${item}`]
         })
       }
     })
@@ -73,16 +72,6 @@ export const FormSpending = ({ refetch }: FormSpendingProps) => {
             )}
           </section>
         ))}
-
-      {month && (
-        <InputCurrencyValue
-          name={`extra_money`}
-          label={'Dinheiro extra: '}
-          state={state}
-          setState={setState}
-          value={state[`extra_money`]}
-        />
-      )}
 
       {state.spending_0 && state.value_0 && (
         <button

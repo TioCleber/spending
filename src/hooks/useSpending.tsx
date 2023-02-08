@@ -3,10 +3,8 @@ import { months } from '../constants/months'
 import { Spending } from '../typings/FormSpending'
 import { SpendingProps } from '../typings/spending'
 import { formatCurrency } from '../utils/formatCurrency'
-import { useProfile } from './useProfile'
 
 export const useSpending = () => {
-  const { user } = useProfile()
   const [refetch, setRefetch] = useState(false)
 
   const spending = useMemo(() => {
@@ -23,26 +21,19 @@ export const useSpending = () => {
           return acc
         }, 0)
 
-        const extra_money = parseSpending.reduce((acc, curr) => {
-          acc += Number(curr.extra_money) / parseSpending?.length
-
-          return acc
-        }, 0)
-
-        const remainingSalary = Number(user.spent) + extra_money - totalValues
+        const remainingSalary = totalValues
 
         spendingForMonth.push({
           name: validMonth,
           stores: parseSpending,
           totalValues: formatCurrency(totalValues),
           remainingSalary: formatCurrency(remainingSalary),
-          extra_money,
         })
       }
     })
 
     return spendingForMonth
-  }, [refetch, user.spent])
+  }, [refetch])
 
   const totalSpending = spending.reduce((acc, curr) => {
     const parseValues = curr.stores.reduce((acc, curr) => {
