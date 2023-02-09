@@ -1,0 +1,39 @@
+.container-select {
+  position: relative;
+  margin: 16px 0;
+}
+
+.select-custom {
+  border: 1px solid;
+  padding: 10px 5px;
+  background: transparent;
+  border-radius: 2px;
+  width: 100%;
+  max-width: 220px;
+}
+
+.container-options-custom {
+  display: flex;
+  width: 100%;
+  max-width: 220px;
+  flex-direction: column;
+  overflow: auto;
+  height: 0;
+  transition: 0.3s;
+  position: absolute;
+  border-radius: 0 0 2px 2px;
+  border: 1px solid;
+  border-top: none;
+  visibility: hidden;
+}
+
+.container-options-custom.active {
+  height: 250px;
+  visibility: visible;
+}
+
+.option-custom {
+  border: none;
+  background: #ffffff;
+  padding: 10px 5px;
+}

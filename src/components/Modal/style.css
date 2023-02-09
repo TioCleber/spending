@@ -11,9 +11,21 @@
 }
 
 .modal-content {
-  width: 550px;
-  height: 550px;
-  display: flex;
+  padding: 16px;
   border-radius: 2px;
   background: #ffffff;
+  margin: 0 24px;
+  width: 100%;
+  max-width: 550px;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: flex-end;
+  margin: 0 0 16px;
+}
+
+.modal-close-button {
+  border: none;
+  background-color: transparent;
 }

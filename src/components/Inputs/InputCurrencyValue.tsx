@@ -1,4 +1,5 @@
 import { formatCurrency } from '../../utils/formatCurrency'
+import './style.css'
 
 interface InputsProps {
   name: string
@@ -27,14 +28,17 @@ export const InputCurrencyValue = ({
 
   return (
     <>
-      <label htmlFor={name}>{label}</label>
+      <label className="label-custom" htmlFor={name}>
+        {label}
 
-      <input
-        type={type || 'text'}
-        value={formatCurrency(Number(value)) || ''}
-        name={name}
-        onChange={handleChange}
-      />
+        <input
+          className="input-custom"
+          type={type || 'text'}
+          value={formatCurrency(Number(value)) || ''}
+          name={name}
+          onChange={handleChange}
+        />
+      </label>
     </>
   )
 }

@@ -1,0 +1,13 @@
+.label-custom {
+  display: block;
+  margin: 0 0 16px;
+}
+
+.input-custom {
+  display: block;
+  width: 100%;
+  padding: 10px 5px;
+  margin: 5px 0 0;
+  border: 1px solid;
+  border-radius: 2px;
+}

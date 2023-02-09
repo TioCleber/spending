@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import './style.css'
 
 interface SelectProps {
   selected: string
@@ -20,15 +21,19 @@ export const Select = ({ selected, values, setValue }: SelectProps) => {
   }
 
   return (
-    <div>
-      <button onClick={handleClick}>
+    <div className="container-select">
+      <button className="select-custom" onClick={handleClick}>
         {selected || 'Selecione o mês para gastos'}
       </button>
 
-      {values.length && open && (
-        <div className={(open && 'active') || ''}>
+      {values.length && (
+        <div className={'container-options-custom' + (open ? ' active' : '')}>
           {values.map((value) => (
-            <button key={value} onClick={() => handleSelect(value)}>
+            <button
+              className="option-custom"
+              key={value}
+              onClick={() => handleSelect(value)}
+            >
               {value}
             </button>
           ))}

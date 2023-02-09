@@ -47,8 +47,8 @@ export const Home = () => {
       </main>
 
       {open && (
-        <Modal>
-          <FormSpending refetch={refetch} />
+        <Modal onClose={handleClick}>
+          <FormSpending onClose={handleClick} refetch={refetch} />
         </Modal>
       )}
     </>

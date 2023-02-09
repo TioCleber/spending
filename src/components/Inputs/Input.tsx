@@ -1,3 +1,5 @@
+import './style.css'
+
 interface InputsProps {
   name: string
   type?: string
@@ -21,14 +23,17 @@ export const Input = ({
 
   return (
     <>
-      <label htmlFor={name}>{label}</label>
+      <label className="label-custom" htmlFor={name}>
+        {label}
 
-      <input
-        type={type || 'text'}
-        value={value || ''}
-        name={name}
-        onChange={handleChange}
-      />
+        <input
+          className="input-custom"
+          type={type || 'text'}
+          value={value || ''}
+          name={name}
+          onChange={handleChange}
+        />
+      </label>
     </>
   )
 }
