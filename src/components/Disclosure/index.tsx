@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import './style.css'
 
 interface DisclosureProps {
   children?: React.ReactNode
@@ -13,10 +14,12 @@ export const Disclosure = ({ children, head }: DisclosureProps) => {
   }
 
   return (
-    <div>
-      <div onClick={handleClick}>{head}</div>
+    <div className="container-disclosure">
+      <div className="head-disclosure" onClick={handleClick}>
+        {head}
+      </div>
 
-      {open && <>{children}</>}
+      {open && <section className="content-disclosure">{children}</section>}
     </div>
   )
 }

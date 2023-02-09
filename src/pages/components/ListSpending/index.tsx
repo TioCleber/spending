@@ -2,6 +2,7 @@ import { Disclosure } from '../../../components/Disclosure'
 import { Spending } from '../../../typings/FormSpending'
 import { SpendingProps } from '../../../typings/spending'
 import { formatCurrency } from '../../../utils/formatCurrency'
+import './style.css'
 
 interface ListSpendingProps {
   spending: SpendingProps[]
@@ -9,7 +10,7 @@ interface ListSpendingProps {
 
 export const ListSpending = ({ spending }: ListSpendingProps) => {
   return (
-    <main>
+    <main className="container-list-spending">
       {!spending.length && (
         <div>
           <p>Você não tem gastos registrados ainda!</p>
@@ -21,13 +22,13 @@ export const ListSpending = ({ spending }: ListSpendingProps) => {
           <Disclosure
             key={values.name}
             head={
-              <div>
+              <>
                 <p>Mês: {values.name}</p>
                 <p>Total Gasto: {values.totalValues}</p>
-              </div>
+              </>
             }
           >
-            <section>
+            <>
               <ul>
                 {values.stores.map((spending: Spending) => (
                   <li key={spending.name}>
@@ -36,9 +37,9 @@ export const ListSpending = ({ spending }: ListSpendingProps) => {
                   </li>
                 ))}
               </ul>
-              
+
               <p>Total Gasto: {values.totalValues}</p>
-            </section>
+            </>
           </Disclosure>
         ))}
     </main>

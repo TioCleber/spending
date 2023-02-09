@@ -1,0 +1,11 @@
+.container-disclosure {
+  width: 100%;
+  border: 1px solid;
+  border-radius: 2px;
+}
+
+.container-disclosure {
+  margin: 24px 0;
+  position: relative;
+  padding: 16px;
+}

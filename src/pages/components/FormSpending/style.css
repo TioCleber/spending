@@ -19,9 +19,16 @@
 .remove-item {
   width: 100%;
   padding: 10px 5px;
-  background-color: transparent;
   border: 1px solid;
   border-radius: 2px;
+}
+
+.add-item {
+  background-color: transparent;
+}
+
+.remove-item {
+  background-color: #fb3232;
 }
 
 .container-buttons > .action-button + .action-button {
