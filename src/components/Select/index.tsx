@@ -29,13 +29,17 @@ export const Select = ({ selected, values, setValue }: SelectProps) => {
       {values.length && (
         <div className={'container-options-custom' + (open ? ' active' : '')}>
           {values.map((value) => (
-            <button
-              className="option-custom"
-              key={value}
-              onClick={() => handleSelect(value)}
-            >
-              {value}
-            </button>
+            <>
+              {selected !== value && (
+                <button
+                  className="option-custom"
+                  key={value}
+                  onClick={() => handleSelect(value)}
+                >
+                  {value}
+                </button>
+              )}
+            </>
           ))}
         </div>
       )}

@@ -6,11 +6,19 @@ interface ModalProps {
 }
 
 export const Modal = ({ children, onClose }: ModalProps) => {
+  const handleClose = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    if (e.target === e.currentTarget) {
+      onClose && onClose()
+    }
+  }
+
   return (
-    <div className="container-modal">
+    <div onClick={handleClose} className="container-modal">
       <div id="modal" className="modal-content">
         <div className="modal-header">
-          <button className="modal-close-button" onClick={onClose}>x</button>
+          <button className="modal-close-button" onClick={onClose}>
+            x
+          </button>
         </div>
 
         {children}

@@ -19,7 +19,11 @@ export const Disclosure = ({ children, head }: DisclosureProps) => {
         {head}
       </div>
 
-      {open && <section className="content-disclosure">{children}</section>}
+      {open && (
+        <section className={'content-disclosure' + (open ? ' active' : '')}>
+          {children}
+        </section>
+      )}
     </div>
   )
 }
