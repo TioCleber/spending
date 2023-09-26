@@ -1,7 +1,8 @@
-import { Home } from './pages/Home/Home'
+import { Spending } from './pages/Spending/Spending'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { Header } from './components/Header'
 import './styles/app.css'
+import Login from './pages/Login/Login'
 
 const App = () => {
   return (
@@ -11,11 +12,12 @@ const App = () => {
           <Header />
         </div>
 
-        <div>
+        <main>
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/spending" element={<Spending />} />
+            <Route path="/" element={<Login />} />
           </Routes>
-        </div>
+        </main>
       </BrowserRouter>
     </>
   )
