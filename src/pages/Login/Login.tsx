@@ -1,8 +1,16 @@
-import { CircularProgress } from '@mui/material'
-import { Input } from '../../components/Inputs/Input'
+import {
+  Alert,
+  Button,
+  CircularProgress,
+  FormControl,
+  Input,
+  InputLabel,
+} from '@mui/material'
 import Register from '../../components/Register/Register'
 
 import { useLogin } from '../../hooks/useLogin'
+import { InputPassword } from '../../components/Inputs/InputPassword'
+import { InputText } from '../../components/Inputs/InputText'
 
 const Login = () => {
   const { handleLogin, login, loginState, setLogin } = useLogin()
@@ -11,35 +19,44 @@ const Login = () => {
     <div>
       <h1>Login</h1>
 
+      {!loginState.error ? (
+        ''
+      ) : (
+        <div>
+          <Alert variant="filled" severity="error">
+            {loginState.error}
+          </Alert>
+        </div>
+      )}
+
       <div>
-        <Input
+        <InputText
           label="E-mail"
           name="email"
+          setState={setLogin}
           state={login}
           value={login.email}
-          setState={setLogin}
         />
 
-        <Input
+        <InputPassword
           label="Senha"
           name="password"
-          type="password"
           state={login}
-          value={login.password}
           setState={setLogin}
+          value={login.password}
         />
       </div>
 
       <div>
         {!loginState.loading ? (
-          <button onClick={handleLogin}>login</button>
+          <Button onClick={handleLogin} variant="outlined">
+            Login
+          </Button>
         ) : (
-          <button>
+          <Button onClick={handleLogin} variant="outlined">
             <CircularProgress />
-          </button>
+          </Button>
         )}
-
-        <p>{!loginState.error ? '' : loginState.error}</p>
       </div>
 
       <Register />

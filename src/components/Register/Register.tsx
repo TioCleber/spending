@@ -1,199 +1,93 @@
-import {
-  IconButton,
-  InputAdornment,
-  Modal,
-  OutlinedInput,
-  TextField,
-} from '@mui/material'
-import { Close, Visibility, VisibilityOff } from '@mui/icons-material'
+import { Box, Button, Modal } from '@mui/material'
+import { Close } from '@mui/icons-material'
 import { useRegister } from '../../hooks/useRegister'
-import { useState } from 'react'
-import { useChangeValues } from '../../hooks/useChangeValues'
+import { InputPassword } from '../Inputs/InputPassword'
+import { InputText } from '../Inputs/InputText'
+import { useModal } from '../../hooks/useModal'
 
 const Register = () => {
   const { register, setRegister } = useRegister()
-  const { handleChange } = useChangeValues()
-  const [open, setOpen] = useState(false)
-
-  const handleModal = () => {
-    setOpen(!open)
-  }
-
-  console.log(register)
+  const { handleOpenModal, open } = useModal()
 
   return (
     <section>
       <div>
         <p>
-          Ou <button onClick={handleModal}>registre-se aqui.</button>
+          Ou{' '}
+          <Button onClick={handleOpenModal} variant="text">
+            registre-se aqui.
+          </Button>
         </p>
       </div>
 
-      <Modal open={open}>
-        <div
-          style={{
+      <Modal
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+        open={open}
+      >
+        <Box
+          sx={{
             background: '#fff',
+            width: 500,
           }}
         >
           <div>
-            <button onClick={handleModal}>
+            <Button onClick={handleOpenModal} variant="text">
               <Close />
-            </button>
+            </Button>
           </div>
 
           <div>
-            <TextField
-              id="standard-textarea"
-              label="Multiline Placeholder"
-              placeholder="Placeholder"
-              multiline
-              maxRows={1}
-              variant="standard"
+            <InputText
+              label="Nome"
               name="firstName"
+              setState={setRegister}
+              state={register}
               value={register.firstName}
-              onChange={(e) =>
-                handleChange({
-                  e,
-                  name: 'firstName',
-                  state: register,
-                  setState: setRegister,
-                })
-              }
             />
 
-            <TextField
-              id="standard-textarea"
-              label="Multiline Placeholder"
-              placeholder="Placeholder"
-              multiline
-              maxRows={1}
-              variant="standard"
+            <InputText
+              label="Sobrenome"
+              name="lastName"
+              setState={setRegister}
+              state={register}
               value={register.lastName}
-              onChange={(e) =>
-                handleChange({
-                  e,
-                  name: 'lastName',
-                  state: register,
-                  setState: setRegister,
-                })
-              }
             />
           </div>
 
-          <TextField
-            id="standard-textarea"
-            label="Multiline Placeholder"
-            placeholder="Placeholder"
-            multiline
-            maxRows={1}
-            variant="standard"
+          <InputText
+            label="E-mail"
+            name="email"
+            setState={setRegister}
+            state={register}
             value={register.email}
-            onChange={(e) =>
-              handleChange({
-                e,
-                name: 'email',
-                state: register,
-                setState: setRegister,
-              })
-            }
           />
 
           <div>
-            <OutlinedInput
-              id="outlined-adornment-password"
-              type={false ? 'text' : 'password'}
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    // onClick={handleClickShowPassword}
-                    // onMouseDown={handleMouseDownPassword}
-                    edge="end"
-                  >
-                    {true ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              }
-              label="Password"
+            <InputPassword
+              label="Senha"
+              name="password"
+              setState={setRegister}
+              state={register}
+              value={register.password}
             />
 
-            <OutlinedInput
-              id="outlined-adornment-password"
-              type={false ? 'text' : 'password'}
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    // onClick={handleClickShowPassword}
-                    // onMouseDown={handleMouseDownPassword}
-                    edge="end"
-                  >
-                    {true ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              }
-              label="Password"
+            <InputPassword
+              label="Confirmar senha"
+              name="confirmPassword"
+              setState={setRegister}
+              state={register}
+              value={register.confirmPassword}
             />
           </div>
 
           <div>
-            <TextField
-              id="standard-textarea"
-              label="Multiline Placeholder"
-              placeholder="Placeholder"
-              multiline
-              maxRows={1}
-              variant="standard"
-              value={register.earnings}
-              onChange={(e) =>
-                handleChange({
-                  e,
-                  name: 'earnings',
-                  state: register,
-                  setState: setRegister,
-                })
-              }
-            />
-
-            <TextField
-              id="standard-textarea"
-              label="Multiline Placeholder"
-              placeholder="Placeholder"
-              multiline
-              maxRows={1}
-              variant="standard"
-              value={register.salary}
-              onChange={(e) =>
-                handleChange({
-                  e,
-                  name: 'salary',
-                  state: register,
-                  setState: setRegister,
-                })
-              }
-            />
-
-            <TextField
-              id="standard-textarea"
-              label="Multiline Placeholder"
-              placeholder="Placeholder"
-              multiline
-              maxRows={1}
-              variant="standard"
-              value={register.moneySaved}
-              onChange={(e) =>
-                handleChange({
-                  e,
-                  name: 'moneySaved',
-                  state: register,
-                  setState: setRegister,
-                })
-              }
-            />
+            <Button variant="outlined">Cadastrar</Button>
           </div>
-
-          <button>Cadastrar</button>
-        </div>
+        </Box>
       </Modal>
     </section>
   )

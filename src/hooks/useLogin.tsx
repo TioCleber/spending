@@ -33,7 +33,7 @@ export const useLogin = () => {
 
   const handleLogin = async () => {
     try {
-      setLoginState((old) => ({ ...old, loading: true }))
+      setLoginState({ error: '', loading: true })
 
       await axios
         .post('https://spending-service.onrender.com/v1/pub/sessions', login)
@@ -48,6 +48,8 @@ export const useLogin = () => {
       navigate('/spending')
     } catch (err: any) {
       setLoginState({ loading: false, error: err.response.data.message })
+
+      setTimeout(() => setLoginState((old) => ({ ...old, error: '' })), 1700)
     }
   }
 
