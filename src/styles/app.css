@@ -5,3 +5,13 @@
   font-family: sans-serif;
   list-style: none;
 }
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+.page {
+  height: calc(100% - 18px);
+}

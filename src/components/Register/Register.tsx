@@ -10,17 +10,22 @@ const Register = () => {
   const { handleOpenModal, open } = useModal()
 
   return (
-    <section>
-      <div>
-        <p>
+    <section className="section-register">
+      <div className="container-text-register">
+        <p className="text-register">
           Ou{' '}
-          <Button onClick={handleOpenModal} variant="text">
+          <Button
+            className="button-register"
+            onClick={handleOpenModal}
+            variant="text"
+          >
             registre-se aqui.
           </Button>
         </p>
       </div>
 
       <Modal
+        className="modal modal-register"
         sx={{
           display: 'flex',
           justifyContent: 'center',
@@ -34,13 +39,17 @@ const Register = () => {
             width: 500,
           }}
         >
-          <div>
-            <Button onClick={handleOpenModal} variant="text">
-              <Close />
+          <div className="container-modal-close">
+            <Button
+              className="button-modal-close"
+              onClick={handleOpenModal}
+              variant="text"
+            >
+              <Close className="icon-modal-close" />
             </Button>
           </div>
 
-          <div>
+          <div className="input-groups">
             <InputText
               label="Nome"
               name="firstName"
@@ -66,7 +75,7 @@ const Register = () => {
             value={register.email}
           />
 
-          <div>
+          <div className="input-groups">
             <InputPassword
               label="Senha"
               name="password"
@@ -84,8 +93,10 @@ const Register = () => {
             />
           </div>
 
-          <div>
-            <Button variant="outlined">Cadastrar</Button>
+          <div className="container-button-register">
+            <Button className="button-register" variant="outlined">
+              Cadastrar
+            </Button>
           </div>
         </Box>
       </Modal>

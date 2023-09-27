@@ -29,7 +29,7 @@ export const InputPassword = ({
 
   return (
     <>
-      <FormControl sx={{ m: 1, width: '25ch' }} variant="standard">
+      <FormControl className='input-password' variant="standard">
         <InputLabel>{label}</InputLabel>
         <Input
           type={showPassword ? 'text' : 'password'}

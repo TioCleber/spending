@@ -20,7 +20,7 @@ export const InputText = ({
 
   return (
     <>
-      <FormControl sx={{ m: 1, width: '25ch' }} variant="standard">
+      <FormControl className='input' variant="standard">
         <InputLabel>{label}</InputLabel>
         <Input
           onChange={(e) =>
