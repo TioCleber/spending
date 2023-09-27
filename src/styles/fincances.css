@@ -83,6 +83,11 @@
   margin: 0.3125rem 0 0;
 }
 
+.container-search .search {
+  display: flex;
+  align-items: baseline;
+}
+
 @media screen and (min-width: 64rem) {
   .cards-finance {
     flex-wrap: nowrap;

@@ -2,17 +2,27 @@ import { useEffect, useState } from 'react'
 import { useAxios } from '../../hooks/useAxios'
 import { useService } from '../../hooks/useService'
 
-import { Card, CardContent, Skeleton } from '@mui/material'
+import {
+  Button,
+  Card,
+  CardContent,
+  Skeleton,
+} from '@mui/material'
 import { Link, useNavigate } from 'react-router-dom'
 
 import { IProfile } from '../../typings/profile'
 
 import './../../styles/fincances.css'
+import SelectCustom from '../../components/Select/Select'
+import { months, period } from '../../constants/months'
+import { INITIAL_VALUE_SEARCH, category } from '../../constants/search'
+import { Search } from '../../typings/search'
 
 export const Finances = () => {
   const { get, loading, error } = useAxios()
   const { url, headers } = useService()
   const [profile, setProfile] = useState<IProfile>()
+  const [search, setSearch] = useState<Search>(INITIAL_VALUE_SEARCH)
 
   const navigate = useNavigate()
 
@@ -27,6 +37,8 @@ export const Finances = () => {
   }, [error, navigate])
 
   console.log(profile)
+
+  console.log(search)
 
   return (
     <section className="section-finances">
@@ -140,6 +152,36 @@ export const Finances = () => {
               </div>
             </CardContent>
           </Card>
+        </aside>
+      )}
+
+      {loading || !profile || error ? (
+        <Skeleton sx={{ width: '100%', height: 65 }} />
+      ) : (
+        <aside className="container-search">
+          <div className="search">
+            <SelectCustom
+              label="Mês"
+              setState={setSearch}
+              value={search.period}
+              values={months}
+              name="period"
+              state={search}
+            />
+
+            <SelectCustom
+              setState={setSearch}
+              value={search.category}
+              name="category"
+              state={search}
+              label="Categoria"
+              values={category}
+            />
+
+            <Button className="button button-login" variant="outlined">
+              Buscar
+            </Button>
+          </div>
         </aside>
       )}
 
