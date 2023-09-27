@@ -1,16 +1,10 @@
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  Card,
-  CardContent,
-  Skeleton,
-} from '@mui/material'
-import { ExpandMore } from '@mui/icons-material'
-import { useAxios } from '../../hooks/useAxios'
 import { useEffect, useState } from 'react'
+import { useAxios } from '../../hooks/useAxios'
 import { useService } from '../../hooks/useService'
+
+import { Card, CardContent, Skeleton } from '@mui/material'
 import { Link, useNavigate } from 'react-router-dom'
+
 import { IProfile } from '../../typings/profile'
 
 import './../../styles/fincances.css'
@@ -23,7 +17,7 @@ export const Finances = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    // get({ url: `${url}v1/pvt/profile`, headers, data: setProfile })
+    get({ url: `${url}v1/pvt/profile`, headers, data: setProfile })
   }, [])
 
   useEffect(() => {
@@ -62,7 +56,9 @@ export const Finances = () => {
           <Card className="card-finance">
             <CardContent className="card-finance-content">
               <div className="titles">
-                <h1 className="card-finance-title">Olá Nome</h1>
+                <h1 className="card-finance-title">
+                  Olá {`${profile.firstName} ${profile.lastName}`}
+                </h1>
 
                 <h3 className="card-finance-subtitle">
                   Aqui está sua finança de hoje:
@@ -71,16 +67,13 @@ export const Finances = () => {
 
               <div className="card-finances">
                 <p className="finances money-saved">
-                  <span>Dinheiro guardado: </span>
-                  10
+                  <span>Dinheiro guardado: {profile.moneySaved ?? 0}</span>
                 </p>
                 <p className="finances earnings">
-                  <span>Ganhos: </span>
-                  10
+                  <span>Ganhos: {profile.earnings ?? 0}</span>
                 </p>
                 <p className="finances salary">
-                  <span>Salario: </span>
-                  10
+                  <span>Salario: {profile.salary ?? 0}</span>
                 </p>
               </div>
             </CardContent>
@@ -96,12 +89,17 @@ export const Finances = () => {
 
               <div className="card-finances">
                 <p className="finances total-expenses">
-                  Local | Instituição Bancária | Total: 10
+                  {profile.expenses.allExpenses.length
+                    ? 'Local | Instituição Bancária | Total: 10'
+                    : 'Você não possuí gastos ainda esse mês.'}
                 </p>
 
-                <p className="finances spending">Casas Bahia Itaú 10</p>
-                <p className="finances spending">Casas Bahia Itaú 10</p>
-                <p className="finances spending">Casas Bahia Itaú 10</p>
+                {profile.expenses.allExpenses.length > 0 &&
+                  profile.expenses.allExpenses.map((expenses) => (
+                    <p className="finances spending">
+                      {expenses.name} {expenses.institution} {expenses.value}
+                    </p>
+                  ))}
               </div>
 
               <div className="link">
@@ -122,12 +120,17 @@ export const Finances = () => {
 
               <div className="card-finances">
                 <p className="finances total-spent">
-                  Local | Instituição Bancária | Total: 10
+                  {profile.spending.allSpent.length
+                    ? 'Local | Instituição Bancária | Total: 10'
+                    : 'Você não possuí gastos ainda esse mês.'}
                 </p>
 
-                <p className="finances spending">Casas Bahia Itaú 10</p>
-                <p className="finances spending">Casas Bahia Itaú 10</p>
-                <p className="finances spending">Casas Bahia Itaú 10</p>
+                {profile.spending.allSpent.length > 0 &&
+                  profile.spending.allSpent.map((spending) => (
+                    <p className="finances spending">
+                      {spending.name} {spending.institution} {spending.value}
+                    </p>
+                  ))}
               </div>
 
               <div className="link">
@@ -155,20 +158,24 @@ export const Finances = () => {
               : 'Você não tem gastos este mês.'}
           </h3>
 
-          {profile.spending.allSpent.length && (
+          {profile.spending.allSpent.length > 0 && (
             <div className="container-spending">
               <ul className="list-of-spending">
-                <li className="line-spending">
-                  <p className="text-spending">
-                    <span className="name">Nome</span>
-                    <span className="value">Valor</span>
-                  </p>
+                {profile.spending.allSpent.map((spending) => (
+                  <li className="line-spending">
+                    <p className="text-spending">
+                      <span className="name">{spending.name}</span>
+                      <span className="value">{spending.value}</span>
+                    </p>
 
-                  <p className="text-spending">
-                    <span className="institution">Instituição</span>
-                    <span className="date">Data</span>
-                  </p>
-                </li>
+                    <p className="text-spending">
+                      <span className="institution">
+                        {spending.institution}
+                      </span>
+                      <span className="date">{spending.date}</span>
+                    </p>
+                  </li>
+                ))}
               </ul>
             </div>
           )}
