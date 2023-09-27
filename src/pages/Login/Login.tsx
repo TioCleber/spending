@@ -16,17 +16,17 @@ const Login = () => {
 
       <div className="login">
         <div className="container-login">
-          <h1 className="title-login">Login</h1>
-
           {!loginState.error ? (
             ''
           ) : (
             <div className="container-alert">
-              <Alert variant="filled" severity="error">
+              <Alert className="alert-error" variant="filled" severity="error">
                 {loginState.error}
               </Alert>
             </div>
           )}
+
+          <h1 className="title-login">Faça Login</h1>
 
           <div className="container-input input-groups">
             <InputText
@@ -61,7 +61,10 @@ const Login = () => {
                 onClick={handleLogin}
                 variant="outlined"
               >
-                <CircularProgress />
+                <CircularProgress
+                  style={{ width: 24, height: 24 }}
+                  className="loading"
+                />
               </Button>
             )}
           </div>

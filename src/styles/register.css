@@ -1,0 +1,21 @@
+.section-register {
+  margin: 0.75rem 0 0;
+}
+
+.container-text-register .text-register {
+  display: flex;
+  align-items: center;
+}
+
+.container-text-register .text-register .button-register {
+  background: transparent;
+  border: none;
+  text-decoration: underline;
+  margin-left: 0.3125rem;
+}
+
+@media screen and (min-width: 64rem) {
+  .container-text-register .text-register .button-register {
+    cursor: pointer;
+  }
+}
