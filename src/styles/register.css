@@ -14,8 +14,67 @@
   margin-left: 0.3125rem;
 }
 
+.register-title {
+  margin: 0 0 0.5rem;
+}
+
+.modal .input-groups {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.modal .input-groups .input,
+.modal .input,
+.modal .input-groups .input-password {
+  width: 100%;
+  margin: 0 0 0.5rem;
+}
+
+.container-button-register {
+  display: flex;
+  flex-direction: column-reverse;
+  margin: 1rem 0 0;
+}
+
+.container-button-register .button-register {
+  border: none;
+  background: transparent;
+  height: 2.375rem;
+  font-size: 0.875rem;
+}
+
+.container-button-register .button-register.button-submit {
+  border: 0.0625rem solid;
+  border-radius: 0.125rem;
+  min-width: 200px;
+}
+
 @media screen and (min-width: 64rem) {
   .container-text-register .text-register .button-register {
+    cursor: pointer;
+  }
+
+  .modal .input-groups {
+    flex-wrap: nowrap;
+  }
+
+  .modal .input-groups .input + .input,
+  .modal .input-groups .input-password + .input-password {
+    margin-left: 8px;
+  }
+
+  .container-button-register {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+
+  .container-button-register .button-register.button-cancel {
+    margin-right: 1rem;
+  }
+
+  .container-button-register .button-register {
+    font-size: 1rem;
     cursor: pointer;
   }
 }

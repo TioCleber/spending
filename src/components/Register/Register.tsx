@@ -1,10 +1,11 @@
-import { Button } from '@mui/material'
 import { useRegister } from '../../hooks/useRegister'
+import { useModal } from '../../hooks/useModal'
+
 import { InputPassword } from '../Inputs/InputPassword'
 import { InputText } from '../Inputs/InputText'
-import { useModal } from '../../hooks/useModal'
-import '../../styles/register.css'
 import ModalCustom from '../Modal/Modal'
+
+import '../../styles/register.css'
 
 const Register = () => {
   const { register, setRegister } = useRegister()
@@ -23,6 +24,8 @@ const Register = () => {
       </div>
 
       <ModalCustom open={open} handleOpenModal={handleOpenModal}>
+        <div className="register-title">Registre-se</div>
+
         <div className="input-groups">
           <InputText
             label="Nome"
@@ -68,9 +71,14 @@ const Register = () => {
         </div>
 
         <div className="container-button-register">
-          <Button className="button-register" variant="outlined">
-            Cadastrar
-          </Button>
+          <button
+            onClick={handleOpenModal}
+            className="button-register button-cancel"
+          >
+            cancelar
+          </button>
+
+          <button className="button-register button-submit">Cadastrar</button>
         </div>
       </ModalCustom>
     </section>
