@@ -6,9 +6,12 @@ import { InputText } from '../Inputs/InputText'
 import ModalCustom from '../Modal/Modal'
 
 import '../../styles/register.css'
+import { CircularProgress } from '@mui/material'
+import AlertCustom from '../Alert/Alert'
 
 const Register = () => {
-  const { register, setRegister } = useRegister()
+  const { register, setRegister, handleRegister, loading, error, success } =
+    useRegister()
   const { handleOpenModal, open } = useModal()
 
   return (
@@ -78,8 +81,46 @@ const Register = () => {
             cancelar
           </button>
 
-          <button className="button-register button-submit">Cadastrar</button>
+          {!loading ? (
+            <button
+              onClick={handleRegister}
+              className="button-register button-submit"
+            >
+              Cadastrar
+            </button>
+          ) : (
+            <button className="button-register button-submit">
+              <CircularProgress
+                style={{ width: 24, height: 24 }}
+                className="loading"
+              />
+            </button>
+          )}
         </div>
+
+        {!error ? (
+          ''
+        ) : (
+          <div className="container-alert register">
+            <AlertCustom
+              type="error"
+              message={
+                error === 'User already exists.'
+                  ? 'Usuário já cadastrado'
+                  : 'Ocorreu algum erro, tente novamente.'
+              }
+            />
+          </div>
+        )}
+
+        {success && (
+          <div className="container-alert register">
+            <AlertCustom
+              type="success"
+              message={'Cadastro realizado com sucesso!'}
+            />
+          </div>
+        )}
       </ModalCustom>
     </section>
   )

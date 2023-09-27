@@ -1,4 +1,6 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useAxios } from './useAxios'
+import { useService } from './useService'
 
 interface Register {
   firstName: string
@@ -6,9 +8,6 @@ interface Register {
   email: string
   password: string
   confirmPassword: string
-  earnings: string
-  moneySaved: string
-  salary: string
 }
 
 const INITIAL_VALUE = {
@@ -17,13 +16,38 @@ const INITIAL_VALUE = {
   email: '',
   password: '',
   confirmPassword: '',
-  earnings: '',
-  moneySaved: '',
-  salary: '',
 }
 
 export const useRegister = () => {
   const [register, setRegister] = useState<Register>(INITIAL_VALUE)
+  const [data, setData] = useState()
+  const { loading, error, post, success } = useAxios()
+  const { url } = useService()
 
-  return { register, setRegister }
+  const body = {
+    email: register.email,
+    firstName: register.firstName,
+    lastName: register.lastName,
+    password: register.password,
+  }
+
+  const handleRegister = async () => {
+    await post({ body: body, url: `${url}v1/pub/users`, data: setData })
+  }
+
+  useEffect(() => {
+    if (success) {
+      setRegister(INITIAL_VALUE)
+    }
+  }, [success])
+
+  return {
+    register,
+    setRegister,
+    handleRegister,
+    loading,
+    error,
+    data,
+    success,
+  }
 }

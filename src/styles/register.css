@@ -49,6 +49,10 @@
   min-width: 200px;
 }
 
+.container-alert.register {
+  margin: 1rem 0 0;
+}
+
 @media screen and (min-width: 64rem) {
   .container-text-register .text-register .button-register {
     cursor: pointer;
