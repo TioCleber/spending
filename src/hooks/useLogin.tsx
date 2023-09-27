@@ -41,7 +41,7 @@ export const useLogin = () => {
 
   useEffect(() => {
     if (success) {
-      navigate('/spending')
+      navigate('/finances')
     }
   }, [success])
 

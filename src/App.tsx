@@ -1,4 +1,4 @@
-import { Spending } from './pages/Spending/Spending'
+import { Finances } from './pages/Finances/Finances'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { Header } from './components/Header'
 import Login from './pages/Login/Login'
@@ -10,10 +10,10 @@ const App = () => {
     <BrowserRouter>
       <Header />
 
-      <main className="page">
+      <main className="page container-page">
         <Routes>
           <Route path="/" element={<Login />} />
-          <Route path="/spending" element={<Spending />} />
+          <Route path="/finances" element={<Finances />} />
         </Routes>
       </main>
     </BrowserRouter>

@@ -13,5 +13,11 @@ body,
 }
 
 .page {
-  height: calc(100% - 18px);
+  min-height: calc(100% - 18px);
+}
+
+.container-page {
+  max-width: 90.25rem;
+  margin: 0 auto;
+  padding: 0 1rem 1rem;
 }
