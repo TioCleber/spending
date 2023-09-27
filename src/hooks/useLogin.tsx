@@ -1,57 +1,49 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
+import { useAxios } from './useAxios'
+import { useService } from './useService'
+
 import Cookies from 'js-cookie'
-
-const INITIAL_VALUE = {
-  email: '',
-  password: '',
-}
-
-const INITIAL_LOGIN_STATE_VALUE = {
-  loading: false,
-  error: '',
-}
 
 type Login = {
   email: string
   password: string
 }
 
-type LoginState = {
-  loading: boolean
-  error: string
+const INITIAL_VALUE = {
+  email: '',
+  password: '',
 }
 
 export const useLogin = () => {
   const [login, setLogin] = useState<Login>(INITIAL_VALUE)
-  const [loginState, setLoginState] = useState<LoginState>(
-    INITIAL_LOGIN_STATE_VALUE
-  )
 
   const navigate = useNavigate()
 
-  const handleLogin = async () => {
-    try {
-      setLoginState({ error: '', loading: true })
+  const { post, loading, error, success } = useAxios()
+  const { url } = useService()
 
-      await axios
-        .post('https://spending-service.onrender.com/v1/pub/sessions', login)
-        .then((res) => {
-          Cookies.set('SpendingIdAuth', res.data.token, {
-            expires: new Date(Date.now() + 3600000),
-          })
-        })
+  const handleCookie = (data: any) => {
+    const token = data.token
 
-      setLoginState((old) => ({ ...old, loading: false }))
-
-      navigate('/spending')
-    } catch (err: any) {
-      setLoginState({ loading: false, error: err.response.data.message })
-
-      setTimeout(() => setLoginState((old) => ({ ...old, error: '' })), 1700)
-    }
+    Cookies.set('SpendingIdAuth', token, {
+      expires: new Date(Date.now() + 3600000),
+    })
   }
 
-  return { login, setLogin, handleLogin, loginState }
+  const handleLogin = async () => {
+    await post({
+      url: `${url}v1/pub/sessions`,
+      body: login,
+      data: handleCookie,
+    })
+  }
+
+  useEffect(() => {
+    if (success) {
+      navigate('/spending')
+    }
+  }, [success])
+
+  return { login, setLogin, handleLogin, loading, error, success }
 }

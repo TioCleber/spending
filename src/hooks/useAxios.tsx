@@ -9,14 +9,14 @@ type State = {
 
 type Post = {
   url: string
-  data: Function
+  data?: Function
   headers?: object
   body: object
 }
 
 type Get = {
   url: string
-  data: Function
+  data?: Function
   headers?: object
 }
 
@@ -34,7 +34,7 @@ export function useAxios() {
       setState({ error: '', loading: true, success: false })
 
       await axios.get(url, { headers: { ...headers } }).then((res) => {
-        data(res.data)
+        data && data(res.data)
       })
 
       setState({ error: '', loading: false, success: true })
@@ -69,7 +69,7 @@ export function useAxios() {
     if (state.error || state.success) {
       setTimeout(() => {
         setState(INITIAL_LOGIN_STATE_VALUE)
-      }, 1500)
+      }, 1800)
     }
   }, [state.error, state.success])
 

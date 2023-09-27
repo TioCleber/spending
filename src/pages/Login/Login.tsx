@@ -8,7 +8,7 @@ import { InputText } from '../../components/Inputs/InputText'
 import './../../styles/login.css'
 
 const Login = () => {
-  const { handleLogin, login, loginState, setLogin } = useLogin()
+  const { handleLogin, login, error, loading, setLogin } = useLogin()
 
   return (
     <section className="section-login">
@@ -16,12 +16,12 @@ const Login = () => {
 
       <div className="login">
         <div className="container-login">
-          {!loginState.error ? (
+          {!error ? (
             ''
           ) : (
             <div className="container-alert">
               <Alert className="alert-error" variant="filled" severity="error">
-                {loginState.error}
+                {error}
               </Alert>
             </div>
           )}
@@ -47,26 +47,21 @@ const Login = () => {
           </div>
 
           <div className="container-buttons buttons-groups">
-            {!loginState.loading ? (
-              <Button
-                className="button button-login"
-                onClick={handleLogin}
-                variant="outlined"
-              >
-                Login
-              </Button>
-            ) : (
-              <Button
-                className="button button-login button-loading"
-                onClick={handleLogin}
-                variant="outlined"
-              >
+            <Button
+              className="button button-login"
+              onClick={handleLogin}
+              variant="outlined"
+              disabled={loading}
+            >
+              {loading ? (
                 <CircularProgress
                   style={{ width: 24, height: 24 }}
                   className="loading"
                 />
-              </Button>
-            )}
+              ) : (
+                'Login'
+              )}
+            </Button>
           </div>
 
           <Register />

@@ -81,21 +81,19 @@ const Register = () => {
             cancelar
           </button>
 
-          {!loading ? (
-            <button
-              onClick={handleRegister}
-              className="button-register button-submit"
-            >
-              Cadastrar
-            </button>
-          ) : (
-            <button className="button-register button-submit">
+          <button
+            onClick={handleRegister}
+            className="button-register button-submit"
+          >
+            {loading ? (
               <CircularProgress
                 style={{ width: 24, height: 24 }}
                 className="loading"
               />
-            </button>
-          )}
+            ) : (
+              'Cadastrar'
+            )}
+          </button>
         </div>
 
         {!error ? (

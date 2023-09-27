@@ -1,63 +1,18 @@
-import { useEffect, useState } from 'react'
-import axios, { AxiosResponse } from 'axios'
-import { useCookies } from '../../hooks/useCookies'
-import { IProfile } from '../../typings/profile'
 import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
   Card,
   CardContent,
-  Paper,
   Skeleton,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Tooltip,
 } from '@mui/material'
-import {
-  DateRange,
-  ExpandMore,
-  Info,
-  MonetizationOn,
-  Payment,
-  Sell,
-} from '@mui/icons-material'
+import { ExpandMore } from '@mui/icons-material'
 
 export const Spending = () => {
-  const [data, setData] = useState<IProfile>()
-  const [loading, setLoading] = useState(false)
-  const token = useCookies()
-
-  useEffect(() => {
-    setLoading(true)
-
-    // axios
-    //   .get('https://spending-service.onrender.com/v1/pvt/profile', {
-    //     headers: {
-    //       authorization: token,
-    //       'x-api-token':
-    //         'eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJVc2VybmFtZSI6InNwZW5kaW5nLXNlcnZpY2UiLCJpYXQiOjE2OTU3NDc0MDR9.2eVnPocV2mM1L6NACbP8WceY4WX2w-ugXsMtBQWaoBY',
-    //       'x-api-key':
-    //         '$2a$12$Yk/vOxYY1cmwfTIGzM7SCujV0G5UP67pSf7SvJTEEKObfYEEJbQiq',
-    //     },
-    //   })
-    //   .then((res: AxiosResponse<any, IProfile>) => {
-    //     setData(res.data)
-    //   })
-    //   .catch((_err) => setLoading(true))
-
-    setLoading(false)
-  }, [token])
-
-  console.log(data)
-
   return (
     <section>
       <div>
-        {loading ? (
+        {false ? (
           <div
             style={{
               display: 'flex',
@@ -129,11 +84,11 @@ export const Spending = () => {
       </div>
 
       <div>
-        {loading ? (
+        {false ? (
           <Skeleton variant="rectangular" width={'100%'} height={500} />
         ) : (
           <div>
-            <h1>Gastos:</h1>
+            <h1>Gastos</h1>
 
             <Accordion>
               <AccordionSummary
@@ -144,41 +99,7 @@ export const Spending = () => {
                 <p>Setembro - total: 138.90</p>
               </AccordionSummary>
               <AccordionDetails>
-                <TableContainer component={Paper}>
-                  <TableHead>
-                    <TableRow>
-                      <TableCell align="left">
-                        Nome <Sell />
-                      </TableCell>
-                      <TableCell align="left">
-                        valor <MonetizationOn />
-                      </TableCell>
-                      <TableCell align="left">
-                        Instituição bancaria{' '}
-                        <Tooltip
-                          title="Instituição bancária onde foi feito o método de pagamento"
-                          placement="top"
-                        >
-                          <Info />
-                        </Tooltip>
-                      </TableCell>
-                      <TableCell align="left">
-                        Método de pagamento <Payment />
-                      </TableCell>
-                      <TableCell align="left">
-                        data <DateRange />
-                      </TableCell>
-                    </TableRow>
-                  </TableHead>
-
-                  <TableBody>
-                    <TableCell align="center">Casas Bahia</TableCell>
-                    <TableCell align="center">138.90</TableCell>
-                    <TableCell align="center">Itau</TableCell>
-                    <TableCell align="center">Pix</TableCell>
-                    <TableCell align="center">25/09/2023</TableCell>
-                  </TableBody>
-                </TableContainer>
+                <div>teste</div>
               </AccordionDetails>
             </Accordion>
 
@@ -191,41 +112,7 @@ export const Spending = () => {
                 <p>Agosto - total: 138.90</p>
               </AccordionSummary>
               <AccordionDetails>
-                <TableContainer component={Paper}>
-                  <TableHead>
-                    <TableRow>
-                      <TableCell align="left">
-                        Nome <Sell />
-                      </TableCell>
-                      <TableCell align="left">
-                        valor <MonetizationOn />
-                      </TableCell>
-                      <TableCell align="left">
-                        Instituição bancaria{' '}
-                        <Tooltip
-                          title="Instituição bancária onde foi feito o método de pagamento"
-                          placement="top"
-                        >
-                          <Info />
-                        </Tooltip>
-                      </TableCell>
-                      <TableCell align="left">
-                        Método de pagamento <Payment />
-                      </TableCell>
-                      <TableCell align="left">
-                        data <DateRange />
-                      </TableCell>
-                    </TableRow>
-                  </TableHead>
-
-                  <TableBody>
-                    <TableCell align="center">Casas Bahia</TableCell>
-                    <TableCell align="center">138.90</TableCell>
-                    <TableCell align="center">Itau</TableCell>
-                    <TableCell align="center">Pix</TableCell>
-                    <TableCell align="center">25/09/2023</TableCell>
-                  </TableBody>
-                </TableContainer>
+                <div>teste</div>
               </AccordionDetails>
             </Accordion>
           </div>
