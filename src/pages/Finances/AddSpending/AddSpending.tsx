@@ -61,7 +61,7 @@ const AddCustom = () => {
   }
 
   useEffect(() => {
-    get({ url: `${url}v1/pvt/categories`, headers, data: setCategories })
+    // get({ url: `${url}v1/pvt/categories`, headers, data: setCategories })
   }, [])
 
   const categoriesName = categories?.spendingCategories.map((category) => category.name)
