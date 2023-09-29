@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useModal } from '../../../hooks/useModal'
 import { useAxios } from '../../../hooks/useAxios'
 import { useService } from '../../../hooks/useService'
@@ -19,6 +19,18 @@ interface Expenses {
   category?: string
 }
 
+interface Categories {
+  expensesCategories: AllCategories[]
+  spendingCategories: AllCategories[]
+}
+
+interface AllCategories {
+  id: string
+  name: string
+  createdAt: string
+  updatedAt: string
+}
+
 const INITIAL_VALUE = {
   name: '',
   institution: '',
@@ -28,9 +40,10 @@ const INITIAL_VALUE = {
 
 const AddExpenses = () => {
   const { handleOpenModal, open } = useModal()
-  const { post, loading, error, success } = useAxios()
+  const { post, get, loading, error, success } = useAxios()
   const { url, headers } = useService()
   const [expenses, setExpenses] = useState<Expenses>(INITIAL_VALUE)
+  const [categories, setCategories] = useState<Categories>()
 
   const handleClick = () => {
     const body = {
@@ -43,6 +56,14 @@ const AddExpenses = () => {
 
     post({ url: `${url}v1/pvt/expenses`, headers, body })
   }
+
+  useEffect(() => {
+    get({ url: `${url}v1/pvt/categories`, headers, data: setCategories })
+  }, [])
+
+  const categoriesName = categories?.expensesCategories.map(
+    (category) => category.name
+  )
 
   return (
     <>
@@ -89,13 +110,21 @@ const AddExpenses = () => {
           </aside>
 
           <aside className="categories">
+            <InputText
+              label="Categoria"
+              name="category"
+              setState={setExpenses}
+              state={expenses}
+              value={expenses.category}
+            />
+
             <SelectCustom
               name="category"
               setState={() => {}}
               state={expenses}
               value={''}
               label="Categoria"
-              values={['teste']}
+              values={categoriesName ?? []}
             />
           </aside>
 

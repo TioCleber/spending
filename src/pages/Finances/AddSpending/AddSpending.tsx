@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useModal } from '../../../hooks/useModal'
 import { useAxios } from '../../../hooks/useAxios'
 import { useService } from '../../../hooks/useService'
@@ -20,6 +20,18 @@ interface Spending {
   category?: string
 }
 
+interface Categories {
+  expensesCategories: AllCategories[]
+  spendingCategories: AllCategories[]
+}
+
+interface AllCategories {
+  id: string
+  name: string
+  createdAt: string
+  updatedAt: string
+}
+
 const INITIAL_VALUE = {
   name: '',
   institution: '',
@@ -30,9 +42,10 @@ const INITIAL_VALUE = {
 
 const AddCustom = () => {
   const { handleOpenModal, open } = useModal()
-  const { loading, post } = useAxios()
+  const { loading, post, get } = useAxios()
   const { url, headers } = useService()
   const [spending, setSpending] = useState<Spending>(INITIAL_VALUE)
+  const [categories, setCategories] = useState<Categories>()
 
   const handleClick = () => {
     const body = {
@@ -44,8 +57,14 @@ const AddCustom = () => {
       category: spending.category,
     }
 
-    post({ url: `${url}v1/pvt/expenses`, headers, data: setSpending, body })
+    post({ url: `${url}v1/pvt/spending`, headers, data: setSpending, body })
   }
+
+  useEffect(() => {
+    get({ url: `${url}v1/pvt/categories`, headers, data: setCategories })
+  }, [])
+
+  const categoriesName = categories?.spendingCategories.map((category) => category.name)
 
   return (
     <>
@@ -100,13 +119,21 @@ const AddCustom = () => {
               value={spending.paymentMethod}
             />
 
+            <InputText
+              label="Categoria"
+              name="category"
+              setState={setSpending}
+              state={spending}
+              value={spending.category}
+            />
+
             <SelectCustom
               name="category"
               setState={() => {}}
               state={spending}
               value={''}
               label="Categoria"
-              values={['teste']}
+              values={categoriesName ?? ['']}
             />
           </aside>
 

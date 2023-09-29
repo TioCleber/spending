@@ -24,7 +24,7 @@ export const Finances = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    // get({ url: `${url}v1/pvt/profile`, headers, data: setProfile })
+    get({ url: `${url}v1/pvt/profile`, headers, data: setProfile })
   }, [])
 
   useEffect(() => {
