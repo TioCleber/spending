@@ -1,25 +1,22 @@
 import { useEffect, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { useAxios } from '../../hooks/useAxios'
 import { useService } from '../../hooks/useService'
 
-import {
-  Button,
-  Card,
-  CardContent,
-  Skeleton,
-} from '@mui/material'
-import { Link, useNavigate } from 'react-router-dom'
-
-import { IProfile } from '../../typings/profile'
-
-import './../../styles/fincances.css'
+import { Button, Card, CardContent, Skeleton } from '@mui/material'
 import SelectCustom from '../../components/Select/Select'
+import AddExpenses from './AddExpenses/AddExpenses'
+import AddSpending from './AddSpending/AddSpending'
+
 import { months, period } from '../../constants/months'
 import { INITIAL_VALUE_SEARCH, category } from '../../constants/search'
 import { Search } from '../../typings/search'
+import { IProfile } from '../../typings/profile'
+
+import './../../styles/fincances.css'
 
 export const Finances = () => {
-  const { get, loading, error } = useAxios()
+  const { get, loading, error, post } = useAxios()
   const { url, headers } = useService()
   const [profile, setProfile] = useState<IProfile>()
   const [search, setSearch] = useState<Search>(INITIAL_VALUE_SEARCH)
@@ -27,7 +24,7 @@ export const Finances = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    get({ url: `${url}v1/pvt/profile`, headers, data: setProfile })
+    // get({ url: `${url}v1/pvt/profile`, headers, data: setProfile })
   }, [])
 
   useEffect(() => {
@@ -97,6 +94,8 @@ export const Finances = () => {
                 <h3 className="card-finance-subtitle">
                   Aqui estão suas despesas:
                 </h3>
+
+                <AddExpenses />
               </div>
 
               <div className="card-finances">
@@ -128,6 +127,8 @@ export const Finances = () => {
                 <h3 className="card-finance-subtitle">
                   Aqui estão seus gastos:
                 </h3>
+
+                <AddSpending />
               </div>
 
               <div className="card-finances">
