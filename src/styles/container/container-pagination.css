@@ -1,0 +1,5 @@
+.container-pagination {
+  display: flex;
+  justify-content: flex-end;
+  margin: 1.5rem 0 0 auto;
+}

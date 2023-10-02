@@ -5,6 +5,7 @@ import { Context } from './context/'
 import { Header } from './components/Header'
 import { Login } from './pages/Login/'
 import { Finances } from './pages/Finances/'
+import { RecurringExpenses } from './pages/RecurringExpenses'
 
 import './styles/app.css'
 
@@ -25,6 +26,10 @@ const App = () => {
                 </Context.Categories>
               </Context.Profile>
             }
+          />
+          <Route
+            path="/recurring-expenses"
+            element={<RecurringExpenses.Page />}
           />
         </Routes>
       </main>

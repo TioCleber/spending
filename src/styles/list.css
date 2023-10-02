@@ -1,0 +1,9 @@
+.list {
+  border: 0.0625rem solid;
+  border-radius: 0.125rem;
+  padding: 16px;
+}
+
+.list + .list {
+  margin: 0.75rem 0 0;
+}
