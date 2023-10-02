@@ -1,13 +1,12 @@
 import { useRegister } from '../../hooks/useRegister'
 import { useShowPassword } from '../../hooks/useShowPassword'
 
-import { ModalContextProvider } from '../../context/ModalContext'
-import { Modal } from '../Modal'
-import { Inputs } from '../Inputs'
-import { Buttons } from '../Buttons'
-import { Icons } from '../Icons'
-import { Divider } from '../Divider/Divider'
-import InputsWrapper from '../Inputs/InputsWrapper'
+import { Context } from '../../context/'
+import { Modal } from './../../components/Modal'
+import { Inputs } from './../../components/Inputs'
+import { Buttons } from './../../components/Buttons'
+import { Icons } from './../../components/Icons'
+import { Divider } from './../../components/Divider/Divider'
 
 import '../../styles/register.css'
 
@@ -17,7 +16,7 @@ const Register = () => {
 
   return (
     <section className="section-register">
-      <ModalContextProvider>
+      <Context.Modal>
         <aside className="container-text-register">
           <Divider />
           <span className="or">ou</span>
@@ -34,36 +33,36 @@ const Register = () => {
           <div className="register-title">Registre-se</div>
 
           <Inputs.Group>
-            <InputsWrapper>
+            <Inputs.Wrapper>
               <Inputs.Label label="Nome" />
               <Inputs.Action
                 onChange={handleData}
                 value={register.firstName}
                 name="firstName"
               />
-            </InputsWrapper>
+            </Inputs.Wrapper>
 
-            <InputsWrapper>
+            <Inputs.Wrapper>
               <Inputs.Label label="Sobrenome" />
               <Inputs.Action
                 onChange={handleData}
                 value={register.lastName}
                 name="lastName"
               />
-            </InputsWrapper>
+            </Inputs.Wrapper>
           </Inputs.Group>
 
-          <InputsWrapper>
+          <Inputs.Wrapper>
             <Inputs.Label label="E-mail" />
             <Inputs.Action
               onChange={handleData}
               value={register.email}
               name="email"
             />
-          </InputsWrapper>
+          </Inputs.Wrapper>
 
           <Inputs.Group>
-            <InputsWrapper>
+            <Inputs.Wrapper>
               <Inputs.Label label="Senha" />
               <Inputs.Action
                 onChange={handleData}
@@ -79,9 +78,9 @@ const Register = () => {
                   />
                 }
               />
-            </InputsWrapper>
+            </Inputs.Wrapper>
 
-            <InputsWrapper>
+            <Inputs.Wrapper>
               <Inputs.Label label="Confirmar Senha" />
               <Inputs.Action
                 onChange={handleData}
@@ -97,7 +96,7 @@ const Register = () => {
                   />
                 }
               />
-            </InputsWrapper>
+            </Inputs.Wrapper>
           </Inputs.Group>
 
           <Buttons.Wrapper>
@@ -108,7 +107,7 @@ const Register = () => {
             </Buttons.Action>
           </Buttons.Wrapper>
         </Modal.TriggerModal>
-      </ModalContextProvider>
+      </Context.Modal>
     </section>
   )
 }

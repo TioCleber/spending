@@ -5,7 +5,7 @@ import { Alert } from './../../components/Alert/'
 import { Buttons } from '../../components/Buttons'
 import { Icons } from '../../components/Icons'
 import { Inputs } from '../../components/Inputs'
-import Register from '../../components/Register/Register'
+import Register from './Register'
 
 import './../../styles/login.css'
 
