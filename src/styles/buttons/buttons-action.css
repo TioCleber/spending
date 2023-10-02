@@ -26,6 +26,7 @@
 
 .button.close {
   width: auto;
+  height: auto;
   border: none;
   margin-left: auto;
 }

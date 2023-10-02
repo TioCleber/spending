@@ -1,6 +1,6 @@
 import { useProfile } from '../../context/ProfileContext'
 
-import { ModalContextProvider } from '../../context/ModalContext'
+import { Context } from '../../context'
 
 import { Skeleton } from '@mui/material'
 import { Finances } from './'
@@ -45,24 +45,15 @@ const FinancesCards = () => {
 
               <Finances.Title.Subtitle text="Aqui está sua finança de hoje:" />
             </Finances.Wrapper.Titles>
-            
-            <div className="titles">
-              <Finances.Title.Profile
-                firstName={profile?.firstName || ''}
-                lastName={profile?.lastName || ''}
-              />
-
-              <Finances.Title.Subtitle text="Aqui está sua finança de hoje:" />
-            </div>
           </Finances.Card>
 
           <Finances.Card>
             <Finances.Wrapper.Action>
               <Finances.Title.Subtitle text="Aqui estão suas despesas:" />
 
-              <ModalContextProvider>
+              <Context.Modal>
                 <Finances.Add.Expenses />
-              </ModalContextProvider>
+              </Context.Modal>
             </Finances.Wrapper.Action>
 
             <Finances.Wrapper.Links>
@@ -74,9 +65,9 @@ const FinancesCards = () => {
             <Finances.Wrapper.Action>
               <Finances.Title.Subtitle text="Aqui estão seus gastos:" />
 
-              <ModalContextProvider>
+              <Context.Modal>
                 <Finances.Add.Spending />
-              </ModalContextProvider>
+              </Context.Modal>
             </Finances.Wrapper.Action>
 
             <Finances.Wrapper.Links>

@@ -1,4 +1,4 @@
-import { ChangeEventHandler, ReactNode } from 'react'
+import { ChangeEventHandler, KeyboardEventHandler, ReactNode } from 'react'
 import { Input } from '@mui/material'
 
 import './../../styles/inputs/inputs-action.css'
@@ -10,6 +10,7 @@ interface InputsActionProps {
   endAdornment?: ReactNode
   placeholder?: string
   name?: string
+  onKeyUp?: KeyboardEventHandler<HTMLTextAreaElement | HTMLInputElement>
 }
 
 const InputsAction = ({
@@ -19,6 +20,7 @@ const InputsAction = ({
   placeholder,
   endAdornment,
   name,
+  onKeyUp,
 }: InputsActionProps) => {
   return (
     <Input
@@ -29,6 +31,7 @@ const InputsAction = ({
       value={value}
       placeholder={placeholder}
       endAdornment={endAdornment}
+      onKeyUp={onKeyUp}
     />
   )
 }

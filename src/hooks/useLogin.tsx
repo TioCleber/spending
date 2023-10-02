@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from 'react'
+import { ChangeEvent, KeyboardEvent, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAxios } from './useAxios'
 import { useService } from './useService'
@@ -27,6 +27,18 @@ export const useLogin = () => {
     e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => {
     setLogin((oldValue) => ({ ...oldValue, [e.target.name]: e.target.value }))
+  }
+
+  const handleLoginOnKeyUp = (
+    e: KeyboardEvent<HTMLTextAreaElement | HTMLInputElement>
+  ) => {
+    if (e.key === 'Enter') {
+      handleLogin()
+
+      return
+    }
+
+    return
   }
 
   const handleCookie = (data: any) => {
@@ -76,5 +88,6 @@ export const useLogin = () => {
     loading,
     error: errorMessage,
     success,
+    handleLoginOnKeyUp,
   }
 }

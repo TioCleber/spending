@@ -11,6 +11,7 @@ import FinancesText from './FinancesText'
 import FinancesTitle from './FinancesTitle'
 import FinancesActionWrapper from './FinancesActionWrapper'
 import FinancesTitlesWrapper from './FinancesTitlesWrapper'
+import FinancesPage from './FinancesPage'
 
 export const Finances = {
   Add: {
@@ -32,4 +33,5 @@ export const Finances = {
     Cards: FinancesCardsWrapper,
     Titles: FinancesTitlesWrapper,
   },
+  Page: FinancesPage,
 }

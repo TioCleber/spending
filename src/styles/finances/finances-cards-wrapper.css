@@ -20,7 +20,7 @@
     flex-wrap: nowrap;
   }
 
-  .container-cards + .skeleton {
+  .container-cards .skeleton + .skeleton {
     margin: 1.5rem 0 0 1rem;
   }
 }

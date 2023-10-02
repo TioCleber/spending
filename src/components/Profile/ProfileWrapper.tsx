@@ -9,8 +9,6 @@ interface ProfileWrapperProps {
 const ProfileWrapper = ({ Else, Then }: ProfileWrapperProps) => {
   const { isAuthenticated, profile } = useProfile()
 
-  console.log(profile)
-
   return <>{!isAuthenticated || !profile ? <>{Then}</> : <>{Else}</>}</>
 }
 

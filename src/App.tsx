@@ -1,11 +1,10 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
-import { CategoriesContextProvider } from './context/CategoriesContext'
-import { ProfileContextProvider } from './context/ProfileContext'
+import { Context } from './context/'
 
 import { Header } from './components/Header'
-import LoginPage from './pages/Login/LoginPage'
-import FinancesPage from './pages/Finances/FinancesPage'
+import { Login } from './pages/Login/'
+import { Finances } from './pages/Finances/'
 
 import './styles/app.css'
 
@@ -16,15 +15,15 @@ const App = () => {
 
       <main className="page container-page">
         <Routes>
-          <Route path="/" element={<LoginPage />} />
+          <Route path="/" element={<Login.Page />} />
           <Route
             path="/finances"
             element={
-              <ProfileContextProvider>
-                <CategoriesContextProvider>
-                  <FinancesPage />
-                </CategoriesContextProvider>
-              </ProfileContextProvider>
+              <Context.Profile>
+                <Context.Categories>
+                  <Finances.Page />
+                </Context.Categories>
+              </Context.Profile>
             }
           />
         </Routes>

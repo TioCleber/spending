@@ -1,25 +1,3 @@
-
-
-.card-finance .card-finance-content .add-finance {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.card-finances {
-  min-height: 6.25rem;
-  margin: 1rem 0 0;
-}
-
-.card-finances .finances + .finances {
-  margin: 0.3125rem 0 0;
-}
-
-.card-finance-content .link {
-  display: flex;
-  justify-content: flex-end;
-}
-
 .spending {
   margin: 1.5rem 0;
 }

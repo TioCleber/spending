@@ -10,7 +10,8 @@ import Register from '../../components/Register/Register'
 import './../../styles/login.css'
 
 const LoginAction = () => {
-  const { handleLogin, login, error, loading, handleData } = useLogin()
+  const { handleLogin, login, error, loading, handleData, handleLoginOnKeyUp } =
+    useLogin()
   const { handleShowPassword, showPassword, type } = useShowPassword()
 
   return (
@@ -49,6 +50,7 @@ const LoginAction = () => {
                   showThen={showPassword}
                 />
               }
+              onKeyUp={handleLoginOnKeyUp}
             />
           </Inputs.Wrapper>
         </Inputs.Group>
