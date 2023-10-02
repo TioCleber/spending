@@ -1,7 +1,6 @@
-import { createContext, useContext, useEffect, useState } from 'react'
-import { useService } from '../hooks/useService'
-import { useAxios } from '../hooks/useAxios'
+import { createContext, useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useGetProfile } from '../hooks/useGetProfile'
 
 import { IProfile } from '../typings/profile'
 
@@ -24,21 +23,12 @@ export const ProfileContext = createContext<ProfileContextProps>(INITIAL_VALUE)
 export const ProfileContextProvider = ({
   children,
 }: ProfileContextProviderProps) => {
-  const [profile, setProfile] = useState<IProfile | undefined | null>()
-
-  const { url, headers } = useService()
-  const { get, error } = useAxios()
+  const { profile, error } = useGetProfile()
 
   const navigate = useNavigate()
 
   useEffect(() => {
-    get({ url: `${url}v1/pvt/profile`, headers, data: setProfile })
-  }, [])
-
-  useEffect(() => {
     if (error) {
-      setProfile(null)
-
       navigate('/')
     }
   }, [error])

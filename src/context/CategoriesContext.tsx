@@ -1,40 +1,21 @@
-import { createContext, useContext, useEffect, useState } from 'react'
-import { useService } from '../hooks/useService'
-import { useAxios } from '../hooks/useAxios'
+import { createContext, useContext } from 'react'
+import { useGetCategories } from '../hooks/useGetCategories'
+
+import { INITIAL_CATEGORIES_VALUES } from '../constants/categories'
+import { Categories } from '../typings/categories'
 
 interface CategoriesContextProviderProps {
   children: React.ReactNode
 }
 
-interface Categories {
-  expensesCategories: AllCategories[]
-  spendingCategories: AllCategories[]
-}
-
-interface AllCategories {
-  id: string
-  name: string
-  createdAt: string
-  updatedAt: string
-}
-
-const INITIAL_VALUES = {
-  expensesCategories: [],
-  spendingCategories: [],
-}
-
-export const CategoriesContext = createContext<Categories>(INITIAL_VALUES)
+export const CategoriesContext = createContext<Categories>(
+  INITIAL_CATEGORIES_VALUES
+)
 
 export const CategoriesContextProvider = ({
   children,
 }: CategoriesContextProviderProps) => {
-  const [categories, setCategories] = useState<Categories>(INITIAL_VALUES)
-  const { url, headers } = useService()
-  const { get } = useAxios()
-
-  useEffect(() => {
-    get({ url: `${url}v1/pvt/categories`, headers, data: setCategories })
-  }, [])
+  const { categories } = useGetCategories()
 
   return (
     <CategoriesContext.Provider

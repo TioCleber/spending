@@ -1,4 +1,5 @@
-import { MouseEventHandler, createContext, useContext, useState } from 'react'
+import { MouseEventHandler, createContext, useContext } from 'react'
+import { useHandleModal } from '../hooks/useHandleModal'
 
 interface ModalContextProps {
   open: boolean
@@ -17,11 +18,7 @@ export const ModalContext = createContext<ModalContextProps>({
 export const ModalContextProvider = ({
   children,
 }: ModalContextProviderProps) => {
-  const [open, setOpen] = useState(false)
-
-  const handleOpenModal = () => {
-    setOpen((oldValue) => !oldValue)
-  }
+  const { open, handleOpenModal } = useHandleModal()
 
   return (
     <ModalContext.Provider value={{ open, handleOpenModal }}>
