@@ -1,0 +1,26 @@
+.container-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.container-cards .skeleton {
+  width: 100%;
+  height: 12.5rem;
+  margin: 1.5rem 0 0;
+  max-width: 31.25rem;
+}
+
+.container-cards .skeleton + .skeleton {
+  margin: 1rem 0 0;
+}
+
+@media screen and (min-width: 64rem) {
+  .container-cards {
+    flex-wrap: nowrap;
+  }
+
+  .container-cards + .skeleton {
+    margin: 1.5rem 0 0 1rem;
+  }
+}

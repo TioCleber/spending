@@ -1,17 +1,19 @@
-import { Card, CardContent, Skeleton } from '@mui/material'
 import { useProfile } from '../../context/ProfileContext'
+
 import { ModalContextProvider } from '../../context/ModalContext'
+
+import { Skeleton } from '@mui/material'
 import { Finances } from './'
-import { Link } from 'react-router-dom'
 import { Profile } from '../../components/Profile'
+import LinkCustom from '../../components/Links/Link'
 
 const FinancesCards = () => {
-  const { profile, isAuthenticated } = useProfile()
+  const { profile } = useProfile()
 
   return (
     <Profile.Wrapper
       Then={
-        <aside className="cards-finance">
+        <Finances.Wrapper.Cards>
           <Skeleton
             className="skeleton"
             variant="rectangular"
@@ -30,104 +32,58 @@ const FinancesCards = () => {
             width="100%"
             height={200}
           />
-        </aside>
+        </Finances.Wrapper.Cards>
       }
       Else={
-        <aside className="cards-finance">
-          <Card className="card-finance">
-            <CardContent className="card-finance-content">
-              <div className="titles">
-                <h1 className="card-finance-title">
-                  Olá {`${profile?.firstName} ${profile?.lastName}`}
-                </h1>
+        <Finances.Wrapper.Cards>
+          <Finances.Card>
+            <Finances.Wrapper.Titles>
+              <Finances.Title.Profile
+                firstName={profile?.firstName || ''}
+                lastName={profile?.lastName || ''}
+              />
 
-                <h3 className="card-finance-subtitle">
-                  Aqui está sua finança de hoje:
-                </h3>
-              </div>
+              <Finances.Title.Subtitle text="Aqui está sua finança de hoje:" />
+            </Finances.Wrapper.Titles>
+            
+            <div className="titles">
+              <Finances.Title.Profile
+                firstName={profile?.firstName || ''}
+                lastName={profile?.lastName || ''}
+              />
 
-              <div className="card-finances">
-                <p className="finances money-saved">
-                  <span>Dinheiro guardado: {profile?.moneySaved ?? 0}</span>
-                </p>
-                <p className="finances salary">
-                  <span>Salario: {profile?.salary ?? 0}</span>
-                </p>
-              </div>
-            </CardContent>
-          </Card>
+              <Finances.Title.Subtitle text="Aqui está sua finança de hoje:" />
+            </div>
+          </Finances.Card>
 
-          <Card className="card-finance">
-            <CardContent className="card-finance-content">
-              <div className="titles add-finance">
-                <h3 className="card-finance-subtitle">
-                  Aqui estão suas despesas:
-                </h3>
+          <Finances.Card>
+            <Finances.Wrapper.Action>
+              <Finances.Title.Subtitle text="Aqui estão suas despesas:" />
 
-                <ModalContextProvider>
-                  <Finances.Add.Expenses />
-                </ModalContextProvider>
-              </div>
+              <ModalContextProvider>
+                <Finances.Add.Expenses />
+              </ModalContextProvider>
+            </Finances.Wrapper.Action>
 
-              <div className="card-finances">
-                <p className="finances total-expenses">
-                  {profile && profile.recurringExpenses.length
-                    ? 'Local | Instituição Bancária | Total: 10'
-                    : 'Você não possuí gastos ainda esse mês.'}
-                </p>
+            <Finances.Wrapper.Links>
+              <LinkCustom text="ver mais" to="/recurring-expenses" />
+            </Finances.Wrapper.Links>
+          </Finances.Card>
 
-                {profile && profile.recurringExpenses.length > 0 &&
-                  profile.recurringExpenses.map((recurringExpenses) => (
-                    <p className="finances spending">
-                      {recurringExpenses.name} {recurringExpenses.institution}{' '}
-                      {recurringExpenses.value}
-                    </p>
-                  ))}
-              </div>
+          <Finances.Card>
+            <Finances.Wrapper.Action>
+              <Finances.Title.Subtitle text="Aqui estão seus gastos:" />
 
-              <div className="link">
-                <Link className="link-finance" to="/expenses">
-                  ver mais
-                </Link>
-              </div>
-            </CardContent>
-          </Card>
+              <ModalContextProvider>
+                <Finances.Add.Spending />
+              </ModalContextProvider>
+            </Finances.Wrapper.Action>
 
-          <Card className="card-finance">
-            <CardContent className="card-finance-content">
-              <div className="titles add-finance">
-                <h3 className="card-finance-subtitle">
-                  Aqui estão seus gastos:
-                </h3>
-
-                <ModalContextProvider>
-                  <Finances.Add.Spending />
-                </ModalContextProvider>
-              </div>
-
-              <div className="card-finances">
-                <p className="finances total-spent">
-                  {profile?.spending.length
-                    ? 'Local | Instituição Bancária | Total: 10'
-                    : 'Você não possuí gastos ainda esse mês.'}
-                </p>
-
-                {profile && profile.spending.length > 0 &&
-                  profile.spending.map((spending) => (
-                    <p className="finances spending">
-                      {spending.name} {spending.institution} {spending.value}
-                    </p>
-                  ))}
-              </div>
-
-              <div className="link">
-                <Link className="link-finance" to="/spending">
-                  ver mais
-                </Link>
-              </div>
-            </CardContent>
-          </Card>
-        </aside>
+            <Finances.Wrapper.Links>
+              <LinkCustom text="ver mais" to="/recurring-expenses" />
+            </Finances.Wrapper.Links>
+          </Finances.Card>
+        </Finances.Wrapper.Cards>
       }
     />
   )

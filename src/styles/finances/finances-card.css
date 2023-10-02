@@ -1,0 +1,25 @@
+.container-card {
+  width: 100%;
+  height: 12.5rem;
+  margin: 1.5rem 0 0;
+  max-width: 31.25rem;
+}
+
+.container-card + .container-card {
+  margin: 1rem 0 0;
+}
+
+.container-card .card-content {
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+@media screen and (min-width: 64rem) {
+  .container-card + .container-card {
+    margin: 1.5rem 0 0 1rem;
+  }
+}
