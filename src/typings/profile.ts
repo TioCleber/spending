@@ -1,21 +1,14 @@
 export interface IProfile {
-  id: string
   firstName: string
-  lastName: number
+  lastName: string
   email: string
-  earnings: number | null
   moneySaved: number | null
   salary: number | null
-  expenses: Expenses
-  spending: Spending
+  recurringExpenses: RecurringExpenses[]
+  spending: Spending[]
 }
 
 export type Spending = {
-  total: number
-  allSpent: AllSpent[]
-}
-
-export type AllSpent = {
   id: string
   name: string
   institution: string
@@ -24,12 +17,7 @@ export type AllSpent = {
   paymentMethod: string
 }
 
-export type Expenses = {
-  total: number
-  allExpenses: AllExpenses[]
-}
-
-export type AllExpenses = {
+export type RecurringExpenses = {
   id: string
   name: string
   institution: string

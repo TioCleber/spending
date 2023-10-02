@@ -40,7 +40,7 @@ export function useAxios() {
       setState({ error: '', loading: false, success: true })
     } catch (err: any) {
       setState({
-        error: err.response.data.message,
+        error: err.response.data.error,
         loading: false,
         success: false,
       })
@@ -57,8 +57,9 @@ export function useAxios() {
 
       setState({ error: '', loading: false, success: true })
     } catch (err: any) {
+      console.log(err)
       setState({
-        error: err.response.data.message,
+        error: err.response.data.error,
         loading: false,
         success: false,
       })

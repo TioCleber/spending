@@ -1,0 +1,13 @@
+.container-buttons {
+  width: 100%;
+  display: flex;
+  flex-direction: column-reverse;
+  margin: 1rem 0 0;
+}
+
+@media screen and (min-width: 64rem) {
+  .container-buttons {
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+}

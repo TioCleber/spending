@@ -1,0 +1,11 @@
+.inputs-group {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+@media screen and (min-width: 64rem) {
+  .inputs-group {
+    flex-wrap: nowrap;
+  }
+}

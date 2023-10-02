@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAxios } from './useAxios'
 import { useService } from './useService'
@@ -23,6 +23,12 @@ export const useLogin = () => {
   const { post, loading, error, success } = useAxios()
   const { url } = useService()
 
+  const handleData = (
+    e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+  ) => {
+    setLogin((oldValue) => ({ ...oldValue, [e.target.name]: e.target.value }))
+  }
+
   const handleCookie = (data: any) => {
     const token = data.token
 
@@ -43,7 +49,32 @@ export const useLogin = () => {
     if (success) {
       navigate('/finances')
     }
-  }, [success])
+  }, [success, navigate])
 
-  return { login, setLogin, handleLogin, loading, error, success }
+  const handleSessionsErrorMessage = () => {
+    if (
+      (error && error === 'Password invalid.') ||
+      (error && error === 'User not found.')
+    ) {
+      return 'Senha ou E-mail invalido.'
+    }
+
+    if (error) {
+      return 'Ocorreu algum erro, tente novamente.'
+    }
+
+    return ''
+  }
+
+  const errorMessage = handleSessionsErrorMessage()
+
+  return {
+    login,
+    setLogin,
+    handleLogin,
+    handleData,
+    loading,
+    error: errorMessage,
+    success,
+  }
 }

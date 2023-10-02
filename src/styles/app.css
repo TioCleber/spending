@@ -23,59 +23,5 @@ body,
   padding: 0 1rem 1rem;
 }
 
-.container-button-register,
-.container-buttons {
-  display: flex;
-  flex-direction: column-reverse;
-  margin: 1rem 0 0;
-}
-
-.container-button-register .button-register,
-.container-buttons .button {
-  border: none;
-  background: transparent;
-  height: 2.375rem;
-  font-size: 0.875rem;
-}
-
-.container-button-register .button-register.button-submit,
-.container-buttons .button-submit {
-  border: 0.0625rem solid;
-  border-radius: 0.125rem;
-  min-width: 200px;
-}
-
-.button {
-  border: 1px solid;
-  background: transparent;
-  border-radius: 2px;
-}
-
 @media screen and (min-width: 64rem) {
-  .container-button-register,
-  .container-buttons {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-  }
-
-  .container-buttons .button {
-    width: auto;
-    cursor: pointer;
-  }
-
-  .container-button-register .button-register.button-cancel,
-  .container-buttons .button-cancel {
-    margin-right: 1rem;
-  }
-
-  .container-button-register .button-register,
-  .container-buttons .button-submit {
-    font-size: 1rem;
-    cursor: pointer;
-  }
-
-  .button {
-    cursor: pointer;
-  }
 }

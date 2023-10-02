@@ -1,5 +1,7 @@
 import { Alert } from '@mui/material'
 
+import './../../styles/alert/alert.css'
+
 interface AlertProps {
   message: string
   type: 'error' | 'success' | 'warning' | 'info'
@@ -7,7 +9,7 @@ interface AlertProps {
 
 const AlertCustom = ({ message, type }: AlertProps) => {
   return (
-    <Alert className="alert-error" variant="filled" severity={type}>
+    <Alert className="alert" variant="filled" severity={type}>
       {message}
     </Alert>
   )

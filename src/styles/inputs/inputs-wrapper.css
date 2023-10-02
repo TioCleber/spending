@@ -1,0 +1,14 @@
+.container-input {
+  width: 100%;
+}
+
+.container-input + .container-input {
+  margin-top: 0.5rem;
+}
+
+@media screen and (min-width: 64rem) {
+  .container-input + .container-input {
+    margin-left: 0.5rem;
+    margin-top: 0;
+  }
+}

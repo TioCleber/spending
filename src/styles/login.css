@@ -26,43 +26,12 @@
   padding: 1rem;
 }
 
-.container-input {
-  margin: 1rem auto;
-}
-
-.container-input .input,
-.container-input .input-password {
-  width: 100%;
-}
-
-.container-input .input-password {
-  margin: 0.5rem 0 0;
-}
-
-.container-buttons .button {
-  width: 100%;
-}
-
-.container-alert {
-  margin: 0 0 1rem;
+.container-login .container-buttons .button {
+  max-width: none;
 }
 
 @media screen and (min-width: 64rem) {
   .institutional-login {
     display: block;
-  }
-
-  .container-input {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .container-input .input {
-    margin: 0 0.5rem 0px 0;
-  }
-
-  .container-input .input-password {
-    margin: 0;
   }
 }

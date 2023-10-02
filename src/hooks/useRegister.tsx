@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 import { useAxios } from './useAxios'
 import { useService } from './useService'
 
@@ -31,6 +31,15 @@ export const useRegister = () => {
     password: register.password,
   }
 
+  const handleData = (
+    e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+  ) => {
+    setRegister((oldValue) => ({
+      ...oldValue,
+      [e.target.name]: e.target.value,
+    }))
+  }
+
   const handleRegister = async () => {
     await post({ body: body, url: `${url}v1/pub/users`, data: setData })
   }
@@ -43,7 +52,7 @@ export const useRegister = () => {
 
   return {
     register,
-    setRegister,
+    handleData,
     handleRegister,
     loading,
     error,

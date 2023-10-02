@@ -2,50 +2,20 @@
   margin: 0.75rem 0 0;
 }
 
-.container-text-register .text-register {
+.section-register .container-text-register {
   display: flex;
   align-items: center;
+  margin: 1.25rem 0;
 }
 
-.container-text-register .text-register .button-register {
-  background: transparent;
-  border: none;
-  text-decoration: underline;
-  margin-left: 0.3125rem;
+.section-register .container-text-register .or {
+  margin: 0 0.3125rem;
+}
+
+.section-register .button {
+  max-width: none;
 }
 
 .register-title {
   margin: 0 0 0.5rem;
-}
-
-.modal .input-groups {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.modal .input-groups .input,
-.modal .input,
-.modal .input-groups .input-password {
-  width: 100%;
-  margin: 0 0 0.5rem;
-}
-
-
-.container-alert.register {
-  margin: 1rem 0 0;
-}
-
-@media screen and (min-width: 64rem) {
-  .container-text-register .text-register .button-register {
-    cursor: pointer;
-  }
-
-  .modal .input-groups {
-    flex-wrap: nowrap;
-  }
-
-  .modal .input-groups .input + .input,
-  .modal .input-groups .input-password + .input-password {
-    margin-left: 8px;
-  }
 }

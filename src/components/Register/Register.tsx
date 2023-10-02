@@ -1,125 +1,114 @@
 import { useRegister } from '../../hooks/useRegister'
-import { useModal } from '../../hooks/useModal'
+import { useShowPassword } from '../../hooks/useShowPassword'
 
-import { InputPassword } from '../Inputs/InputPassword'
-import { InputText } from '../Inputs/InputText'
-import ModalCustom from '../Modal/Modal'
+import { ModalContextProvider } from '../../context/ModalContext'
+import { Modal } from '../Modal'
+import { Inputs } from '../Inputs'
+import { Buttons } from '../Buttons'
+import { Icons } from '../Icons'
+import { Divider } from '../Divider/Divider'
+import InputsWrapper from '../Inputs/InputsWrapper'
 
 import '../../styles/register.css'
-import { CircularProgress } from '@mui/material'
-import AlertCustom from '../Alert/Alert'
 
 const Register = () => {
-  const { register, setRegister, handleRegister, loading, error, success } =
-    useRegister()
-  const { handleOpenModal, open } = useModal()
+  const { register, handleData, handleRegister, loading } = useRegister()
+  const { handleShowPassword, type, showPassword } = useShowPassword()
 
   return (
     <section className="section-register">
-      <div className="container-text-register">
-        <p className="text-register">
-          Ou{' '}
-          <button className="button-register" onClick={handleOpenModal}>
-            registre-se aqui
-          </button>
-          .
-        </p>
-      </div>
+      <ModalContextProvider>
+        <aside className="container-text-register">
+          <Divider />
+          <span className="or">ou</span>
+          <Divider />
+        </aside>
 
-      <ModalCustom open={open} handleOpenModal={handleOpenModal}>
-        <div className="register-title">Registre-se</div>
+        <Modal.Trigger type="border">Registre-se</Modal.Trigger>
 
-        <div className="input-groups">
-          <InputText
-            label="Nome"
-            name="firstName"
-            setState={setRegister}
-            state={register}
-            value={register.firstName}
-          />
+        <Modal.TriggerModal>
+          <Modal.Trigger type="close">
+            <Icons.Close />
+          </Modal.Trigger>
 
-          <InputText
-            label="Sobrenome"
-            name="lastName"
-            setState={setRegister}
-            state={register}
-            value={register.lastName}
-          />
-        </div>
+          <div className="register-title">Registre-se</div>
 
-        <InputText
-          label="E-mail"
-          name="email"
-          setState={setRegister}
-          state={register}
-          value={register.email}
-        />
-
-        <div className="input-groups">
-          <InputPassword
-            label="Senha"
-            name="password"
-            setState={setRegister}
-            state={register}
-            value={register.password}
-          />
-
-          <InputPassword
-            label="Confirmar senha"
-            name="confirmPassword"
-            setState={setRegister}
-            state={register}
-            value={register.confirmPassword}
-          />
-        </div>
-
-        <div className="container-button-register">
-          <button
-            onClick={handleOpenModal}
-            className="button-register button-cancel"
-          >
-            cancelar
-          </button>
-
-          <button
-            onClick={handleRegister}
-            className="button-register button-submit"
-          >
-            {loading ? (
-              <CircularProgress
-                style={{ width: 24, height: 24 }}
-                className="loading"
+          <Inputs.Group>
+            <InputsWrapper>
+              <Inputs.Label label="Nome" />
+              <Inputs.Action
+                onChange={handleData}
+                value={register.firstName}
+                name="firstName"
               />
-            ) : (
-              'Cadastrar'
-            )}
-          </button>
-        </div>
+            </InputsWrapper>
 
-        {!error ? (
-          ''
-        ) : (
-          <div className="container-alert register">
-            <AlertCustom
-              type="error"
-              message={
-                error === 'User already exists.'
-                  ? 'Usuário já cadastrado'
-                  : 'Ocorreu algum erro, tente novamente.'
-              }
-            />
-          </div>
-        )}
+            <InputsWrapper>
+              <Inputs.Label label="Sobrenome" />
+              <Inputs.Action
+                onChange={handleData}
+                value={register.lastName}
+                name="lastName"
+              />
+            </InputsWrapper>
+          </Inputs.Group>
 
-        {success && (
-          <div className="container-alert register">
-            <AlertCustom
-              type="success"
-              message={'Cadastro realizado com sucesso!'}
+          <InputsWrapper>
+            <Inputs.Label label="E-mail" />
+            <Inputs.Action
+              onChange={handleData}
+              value={register.email}
+              name="email"
             />
-          </div>
-        )}
-      </ModalCustom>
+          </InputsWrapper>
+
+          <Inputs.Group>
+            <InputsWrapper>
+              <Inputs.Label label="Senha" />
+              <Inputs.Action
+                onChange={handleData}
+                value={register.password}
+                type={type}
+                name="password"
+                endAdornment={
+                  <Inputs.EndAdornment
+                    Then={<Icons.Visibility />}
+                    Else={<Icons.VisibilityOff />}
+                    onClick={handleShowPassword}
+                    showThen={showPassword}
+                  />
+                }
+              />
+            </InputsWrapper>
+
+            <InputsWrapper>
+              <Inputs.Label label="Confirmar Senha" />
+              <Inputs.Action
+                onChange={handleData}
+                value={register.confirmPassword}
+                name="confirmPassword"
+                type={type}
+                endAdornment={
+                  <Inputs.EndAdornment
+                    Then={<Icons.Visibility />}
+                    Else={<Icons.VisibilityOff />}
+                    onClick={handleShowPassword}
+                    showThen={showPassword}
+                  />
+                }
+              />
+            </InputsWrapper>
+          </Inputs.Group>
+
+          <Buttons.Wrapper>
+            <Modal.Trigger type="cancel">cancelar</Modal.Trigger>
+
+            <Buttons.Action onClick={handleRegister}>
+              {loading ? <Icons.Loading size={24} /> : 'Cadastrar'}
+            </Buttons.Action>
+          </Buttons.Wrapper>
+        </Modal.TriggerModal>
+      </ModalContextProvider>
     </section>
   )
 }

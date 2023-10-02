@@ -5,14 +5,20 @@ import {
   Select,
   SelectChangeEvent,
 } from '@mui/material'
+import { useState } from 'react'
 
 interface SelectProps {
   value: string | number
   setState: React.Dispatch<React.SetStateAction<any>>
   label: string
-  values: string[]
+  values: Values[]
   name: string
   state: React.SetStateAction<any>
+}
+
+type Values = {
+  id: string
+  name: string
 }
 
 const SelectCustom = ({
@@ -23,6 +29,8 @@ const SelectCustom = ({
   name,
   state,
 }: SelectProps) => {
+  const [categories, setCategories] = useState({ name: undefined })
+
   const handleChange = (e: SelectChangeEvent<string | number>) => {
     setState({ ...state, [name]: e.target.value })
   }
@@ -36,8 +44,18 @@ const SelectCustom = ({
       <InputLabel>{label}</InputLabel>
       <Select value={value} onChange={(e) => handleChange(e)} label={label}>
         {values.map((val) => {
-          return <MenuItem value={val}>{val}</MenuItem>
+          return <MenuItem value={val.name}>{val.name}</MenuItem>
         })}
+
+        <MenuItem value={categories.name}>{categories.name}</MenuItem>
+
+        {/* <InputText
+          label=""
+          name="name"
+          setState={setCategories}
+          state={categories}
+          value={categories.name}
+        /> */}
 
         <MenuItem value="">
           <em>nenhum</em>

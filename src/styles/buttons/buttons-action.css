@@ -1,0 +1,43 @@
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 2.375rem;
+  background: transparent;
+}
+
+.button.text,
+.button.cancel {
+  border: none;
+}
+
+.button.border {
+  border: 1px solid;
+  border-radius: 0.125rem;
+}
+
+.button.underline {
+  border: none;
+  text-decoration: underline;
+  width: auto;
+  margin: 0 0.3125rem;
+}
+
+.button.close {
+  width: auto;
+  border: none;
+  margin-left: auto;
+}
+
+@media screen and (min-width: 64rem) {
+  .button {
+    max-width: 12.5rem;
+    cursor: pointer;
+  }
+
+  .button.cancel {
+    width: auto;
+    margin-right: 1.25rem;
+  }
+}
