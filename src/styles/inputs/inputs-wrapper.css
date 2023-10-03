@@ -2,12 +2,14 @@
   width: 100%;
 }
 
-.container-input + .container-input {
+.container-input + .container-input,
+.inputs-group .container-input + .container-select {
   margin-top: 0.5rem;
 }
 
 @media screen and (min-width: 64rem) {
-  .container-input + .container-input {
+  .container-input + .container-input,
+  .inputs-group .container-input + .container-select {
     margin-left: 0.5rem;
     margin-top: 0;
   }

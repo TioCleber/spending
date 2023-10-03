@@ -4,6 +4,10 @@
   flex-wrap: wrap;
 }
 
+.inputs-group + .inputs-group {
+  margin-top: 0.5rem;
+}
+
 @media screen and (min-width: 64rem) {
   .inputs-group {
     flex-wrap: nowrap;

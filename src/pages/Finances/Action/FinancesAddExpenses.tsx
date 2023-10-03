@@ -1,14 +1,15 @@
 import { useState } from 'react'
-import { useAxios } from '../../hooks/useAxios'
-import { useService } from '../../hooks/useService'
-import { useCategories } from '../../context/CategoriesContext'
+import { useAxios } from './../../../hooks/useAxios'
+import { useService } from './../../../hooks/useService'
+import { useCategories } from './../../../context/CategoriesContext'
 
-import { Modal } from '../../components/Modal'
-import { Icons } from '../../components/Icons'
-import { Inputs } from '../../components/Inputs'
-import { Buttons } from '../../components/Buttons'
+import { Modal } from './../../../components/Modal'
+import { Icons } from './../../../components/Icons'
+import { Inputs } from './../../../components/Inputs'
+import { Buttons } from './../../../components/Buttons'
+import { Select } from '../../../components/Select'
 
-import './../../styles/add.css'
+import './../../../styles/add.css'
 
 interface Expenses {
   name: string
@@ -73,10 +74,32 @@ const FinancesAddExpenses = () => {
               <Inputs.Action onChange={() => {}} value={''} name="" />
             </Inputs.Wrapper>
 
-            <Inputs.Wrapper>
-              <Inputs.Label label="Categorias" />
-              <Inputs.Action onChange={() => {}} value={''} name="" />
-            </Inputs.Wrapper>
+            <Select.Wrapper>
+              <Select.Label label="Categorias" />
+
+              <Select.Action
+                label="Categorias"
+                onChange={(e) => console.log(e)}
+                value={''}
+              >
+                {categories &&
+                  categories.map((category) => (
+                    <Select.MenuItem
+                      label={category.name}
+                      value={category.name}
+                    />
+                  ))}
+
+                <Inputs.Wrapper>
+                  <Inputs.Action
+                    placeholder="Preencha uma Categoria"
+                    onChange={() => {}}
+                    value={''}
+                    name=""
+                  />
+                </Inputs.Wrapper>
+              </Select.Action>
+            </Select.Wrapper>
           </Inputs.Group>
 
           <Inputs.Group>

@@ -24,6 +24,66 @@ const RecurringExpensesList = () => {
           </Infos.Finance>
         </Container.Finance>
       </List>
+
+       <List>
+        <Container.Finance>
+          <Infos.Finance>
+            <Infos.Values value="teste" />
+
+            <Infos.Values name="Estabelecimento / Serviço: " value="teste" />
+
+            <Infos.Values value="teste" />
+          </Infos.Finance>
+
+          <Infos.Finance>
+            <Infos.Values value="10 x 10.00" />
+
+            <Infos.Values value="faltam 10 parcelas" />
+
+            <Infos.Values value="Todo dia 10" />
+          </Infos.Finance>
+        </Container.Finance>
+      </List>
+
+      <List>
+        <Container.Finance>
+          <Infos.Finance>
+            <Infos.Values value="teste" />
+
+            <Infos.Values name="Estabelecimento / Serviço: " value="teste" />
+
+            <Infos.Values value="teste" />
+          </Infos.Finance>
+
+          <Infos.Finance>
+            <Infos.Values value="10 x 10.00" />
+
+            <Infos.Values value="faltam 10 parcelas" />
+
+            <Infos.Values value="Todo dia 10" />
+          </Infos.Finance>
+        </Container.Finance>
+      </List>
+
+      <List>
+        <Container.Finance>
+          <Infos.Finance>
+            <Infos.Values value="teste" />
+
+            <Infos.Values name="Estabelecimento / Serviço: " value="teste" />
+
+            <Infos.Values value="teste" />
+          </Infos.Finance>
+
+          <Infos.Finance>
+            <Infos.Values value="10 x 10.00" />
+
+            <Infos.Values value="faltam 10 parcelas" />
+
+            <Infos.Values value="Todo dia 10" />
+          </Infos.Finance>
+        </Container.Finance>
+      </List>
     </Container.UlList>
   )
 }

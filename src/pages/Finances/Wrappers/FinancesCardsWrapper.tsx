@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 
-import './../../styles/finances/finances-cards-wrapper.css'
+import './../../../styles/finances/finances-cards-wrapper.css'
 
 interface FinancesCardsWrapperProps {
   children: ReactNode

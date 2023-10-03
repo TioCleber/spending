@@ -1,6 +1,8 @@
 import { ReactNode } from 'react'
 import { FormControl } from '@mui/material'
 
+import './../../styles/select/select-wrapper.css'
+
 interface SelectWrapperProps {
   children: ReactNode
 }

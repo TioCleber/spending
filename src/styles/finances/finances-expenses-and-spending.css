@@ -12,6 +12,12 @@
   margin: 1rem 0 0;
 }
 
+.finances .content .container-list-finances {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 @media screen and (min-width: 64rem) {
   .finances {
     flex-wrap: nowrap;

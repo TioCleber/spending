@@ -1,4 +1,4 @@
-import './../../styles/finances/finances-title.css'
+import './../../../styles/finances/finances-title.css'
 
 interface FinancesProfileTitleProps {
   firstName: string

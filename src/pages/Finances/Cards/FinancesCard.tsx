@@ -1,7 +1,7 @@
 import { Card, CardContent } from '@mui/material'
 import { ReactNode } from 'react'
 
-import './../../styles/finances/finances-card.css'
+import './../../../styles/finances/finances-card.css'
 
 interface FinancesCardProps {
   children: ReactNode
