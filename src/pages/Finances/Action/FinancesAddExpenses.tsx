@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 import { useAxios } from './../../../hooks/useAxios'
 import { useService } from './../../../hooks/useService'
 import { useCategories } from './../../../context/CategoriesContext'
@@ -13,7 +13,10 @@ import './../../../styles/add.css'
 
 interface Expenses {
   name: string
-  institution: string
+  installments?: number
+  missingInstallments?: number
+  payday?: string
+  establishmentsOrServices: string
   value: number
   date: string
   category?: string
@@ -21,13 +24,13 @@ interface Expenses {
 
 const INITIAL_VALUE = {
   name: '',
-  institution: '',
+  establishmentsOrServices: '',
   value: 0,
   date: '',
 }
 
 const FinancesAddExpenses = () => {
-  const { post, loading, error, success } = useAxios()
+  const { post, loading } = useAxios()
   const { url, headers } = useService()
   const [expenses, setExpenses] = useState<Expenses>(INITIAL_VALUE)
   const { expensesCategories } = useCategories()
@@ -36,12 +39,24 @@ const FinancesAddExpenses = () => {
     const body = {
       name: expenses.name,
       date: new Date(expenses.date).toISOString(),
-      institution: expenses.institution,
+      establishmentsOrServices: expenses.establishmentsOrServices,
       value: Number(expenses.value),
       category: expenses.category,
+      installments: expenses.installments,
+      missingInstallments: expenses.missingInstallments,
+      payday: expenses.payday,
     }
 
     post({ url: `${url}v1/pvt/recurring-expenses`, headers, body })
+  }
+
+  const handleChange = (
+    e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+  ) => {
+    setExpenses((oldValue) => ({
+      ...oldValue,
+      [e.target.name]: e.target.value,
+    }))
   }
 
   const categories = expensesCategories.map((category) => ({
@@ -66,12 +81,20 @@ const FinancesAddExpenses = () => {
           <Inputs.Group>
             <Inputs.Wrapper>
               <Inputs.Label label="Nome" />
-              <Inputs.Action onChange={() => {}} value={''} name="" />
+              <Inputs.Action
+                onChange={handleChange}
+                value={expenses.name}
+                name="name"
+              />
             </Inputs.Wrapper>
 
             <Inputs.Wrapper>
               <Inputs.Label label="Estabelecimento ou Serviço" />
-              <Inputs.Action onChange={() => {}} value={''} name="" />
+              <Inputs.Action
+                onChange={handleChange}
+                value={expenses.establishmentsOrServices}
+                name="establishmentsOrServices"
+              />
             </Inputs.Wrapper>
 
             <Select.Wrapper>
@@ -93,9 +116,9 @@ const FinancesAddExpenses = () => {
                 <Inputs.Wrapper>
                   <Inputs.Action
                     placeholder="Preencha uma Categoria"
-                    onChange={() => {}}
-                    value={''}
-                    name=""
+                    onChange={handleChange}
+                    value={expenses.category ?? ''}
+                    name="category"
                   />
                 </Inputs.Wrapper>
               </Select.Action>
@@ -105,29 +128,49 @@ const FinancesAddExpenses = () => {
           <Inputs.Group>
             <Inputs.Wrapper>
               <Inputs.Label label="Data" />
-              <Inputs.Action onChange={() => {}} value={''} name="" />
+              <Inputs.Action
+                onChange={handleChange}
+                value={expenses.date}
+                name="date"
+              />
             </Inputs.Wrapper>
 
             <Inputs.Wrapper>
               <Inputs.Label label="Dia de pagamento" />
-              <Inputs.Action onChange={() => {}} value={''} name="" />
+              <Inputs.Action
+                onChange={handleChange}
+                value={expenses.payday ?? ''}
+                name="payday"
+              />
             </Inputs.Wrapper>
 
             <Inputs.Wrapper>
               <Inputs.Label label="Valor" />
-              <Inputs.Action onChange={() => {}} value={''} name="" />
+              <Inputs.Action
+                onChange={handleChange}
+                value={expenses.value}
+                name="value"
+              />
             </Inputs.Wrapper>
           </Inputs.Group>
 
           <Inputs.Group>
             <Inputs.Wrapper>
               <Inputs.Label label="Parcelas" />
-              <Inputs.Action onChange={() => {}} value={''} name="" />
+              <Inputs.Action
+                onChange={handleChange}
+                value={expenses.installments ?? ''}
+                name="installments"
+              />
             </Inputs.Wrapper>
 
             <Inputs.Wrapper>
               <Inputs.Label label="Parcelas faltantes" />
-              <Inputs.Action onChange={() => {}} value={''} name="" />
+              <Inputs.Action
+                onChange={handleChange}
+                value={expenses.missingInstallments ?? ''}
+                name="missingInstallments"
+              />
             </Inputs.Wrapper>
           </Inputs.Group>
 
