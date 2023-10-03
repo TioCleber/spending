@@ -6,6 +6,7 @@ import { Header } from './components/Header'
 import { Login } from './pages/Login/'
 import { Finances } from './pages/Finances/'
 import { RecurringExpenses } from './pages/RecurringExpenses'
+import { Spending } from './pages/Spending'
 
 import './styles/app.css'
 
@@ -31,6 +32,7 @@ const App = () => {
             path="/recurring-expenses"
             element={<RecurringExpenses.Page />}
           />
+          <Route path="/spending" element={<Spending.Page />} />
         </Routes>
       </main>
     </BrowserRouter>

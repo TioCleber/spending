@@ -1,7 +1,5 @@
 import { Finances } from './'
 
-import './../../styles/fincances.css'
-
 const FinancesPage = () => {
   return (
     <section className="section-finances">

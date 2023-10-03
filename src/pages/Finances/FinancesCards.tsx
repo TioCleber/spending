@@ -49,24 +49,24 @@ const FinancesCards = () => {
 
           <Finances.Card>
             <Finances.Wrapper.Action>
-              <Finances.Title.Subtitle text="Aqui estão suas despesas:" />
+              <Finances.Title.Subtitle text="Aqui estão seus gastos:" />
 
               <Context.Modal>
-                <Finances.Add.Expenses />
+                <Finances.Add.Spending />
               </Context.Modal>
             </Finances.Wrapper.Action>
 
             <Finances.Wrapper.Links>
-              <LinkCustom text="ver mais" to="/recurring-expenses" />
+              <LinkCustom text="ver mais" to="/spending" />
             </Finances.Wrapper.Links>
           </Finances.Card>
 
           <Finances.Card>
             <Finances.Wrapper.Action>
-              <Finances.Title.Subtitle text="Aqui estão seus gastos:" />
+              <Finances.Title.Subtitle text="Aqui estão suas despesas:" />
 
               <Context.Modal>
-                <Finances.Add.Spending />
+                <Finances.Add.Expenses />
               </Context.Modal>
             </Finances.Wrapper.Action>
 

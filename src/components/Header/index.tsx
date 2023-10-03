@@ -14,7 +14,7 @@ export const Header = () => {
   return (
     <div>
       <div>
-        <Link to="/">Spending</Link>
+        <Link to="/finances">Spending</Link>
       </div>
 
       <ul></ul>
