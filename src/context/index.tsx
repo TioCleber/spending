@@ -1,5 +1,5 @@
 import { CategoriesContextProvider } from './CategoriesContext'
-import { ExpensesContextProvider } from './ExpensesContext'
+import { RecurringExpensesContextProvider } from './RecurringExpensesContext'
 import { ModalContextProvider } from './ModalContext'
 import { ProfileContextProvider } from './ProfileContext'
 import { SpendingContextProvider } from './SpendingContext'
@@ -9,5 +9,5 @@ export const Context = {
   Profile: ProfileContextProvider,
   Modal: ModalContextProvider,
   Spending: SpendingContextProvider,
-  RecurringExpenses: ExpensesContextProvider,
+  RecurringExpenses: RecurringExpensesContextProvider,
 }

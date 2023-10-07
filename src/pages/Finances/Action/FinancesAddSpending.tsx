@@ -1,7 +1,5 @@
-import { ChangeEvent, useState } from 'react'
-import { useAxios } from './../../../hooks/useAxios'
-import { useService } from './../../../hooks/useService'
 import { useCategories } from './../../../context/CategoriesContext'
+import { useAddSpending } from '../../../hooks/useAddSpending'
 
 import { Modal } from './../../../components/Modal'
 import { Buttons } from './../../../components/Buttons'
@@ -11,48 +9,16 @@ import { Select } from '../../../components/Select'
 
 import './../../../styles/add.css'
 
-interface Spending {
-  name: string
-  establishmentsOrServices: string
-  value: number
-  date: string
-  category?: string
-}
-
-const INITIAL_VALUE = {
-  name: '',
-  establishmentsOrServices: '',
-  value: 0,
-  date: '',
-  paymentMethod: '',
-}
-
 const FinancesAddSpending = () => {
-  const { loading, post } = useAxios()
-  const { url, headers } = useService()
-  const [spending, setSpending] = useState<Spending>(INITIAL_VALUE)
   const { spendingCategories } = useCategories()
-
-  const handleClick = () => {
-    const body = {
-      name: spending.name,
-      date: new Date(spending.date).toISOString(),
-      establishmentsOrServices: spending.establishmentsOrServices,
-      value: Number(spending.value),
-      category: spending.category,
-    }
-
-    post({ url: `${url}v1/pvt/spending`, headers, data: setSpending, body })
-  }
-
-  const handleChange = (
-    e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
-  ) => {
-    setSpending((oldValue) => ({
-      ...oldValue,
-      [e.target.name]: e.target.value,
-    }))
-  }
+  const {
+    spending,
+    handleSpending,
+    handleAddSpending,
+    loading,
+    error,
+    success,
+  } = useAddSpending()
 
   const categories = spendingCategories.map((category) => ({
     name: category.name,
@@ -77,7 +43,7 @@ const FinancesAddSpending = () => {
             <Inputs.Wrapper>
               <Inputs.Label label="Nome" />
               <Inputs.Action
-                onChange={handleChange}
+                onChange={handleSpending}
                 value={spending.name}
                 name="name"
               />
@@ -86,7 +52,7 @@ const FinancesAddSpending = () => {
             <Inputs.Wrapper>
               <Inputs.Label label="Estabelecimento ou Serviço" />
               <Inputs.Action
-                onChange={handleChange}
+                onChange={handleSpending}
                 value={spending.establishmentsOrServices}
                 name="establishmentsOrServices"
               />
@@ -103,6 +69,7 @@ const FinancesAddSpending = () => {
                 {categories &&
                   categories.map((category) => (
                     <Select.MenuItem
+                      key={category.id}
                       label={category.name}
                       value={category.name}
                     />
@@ -111,7 +78,7 @@ const FinancesAddSpending = () => {
                 <Inputs.Wrapper>
                   <Inputs.Action
                     placeholder="Preencha uma Categoria"
-                    onChange={handleChange}
+                    onChange={handleSpending}
                     value={spending.category ?? ''}
                     name="category"
                   />
@@ -124,7 +91,7 @@ const FinancesAddSpending = () => {
             <Inputs.Wrapper>
               <Inputs.Label label="Data" />
               <Inputs.Action
-                onChange={handleChange}
+                onChange={handleSpending}
                 value={spending.date}
                 name="date"
               />
@@ -133,7 +100,7 @@ const FinancesAddSpending = () => {
             <Inputs.Wrapper>
               <Inputs.Label label="Valor" />
               <Inputs.Action
-                onChange={handleChange}
+                onChange={handleSpending}
                 value={spending.value}
                 name="value"
               />
@@ -145,7 +112,7 @@ const FinancesAddSpending = () => {
               cancelar
             </Modal.Trigger>
 
-            <Buttons.Action disabled={loading} onClick={handleClick}>
+            <Buttons.Action disabled={loading} onClick={handleAddSpending}>
               {loading ? <Icons.Loading size={24} /> : 'Adicionar'}
             </Buttons.Action>
           </Buttons.Wrapper>

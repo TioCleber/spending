@@ -1,27 +1,39 @@
+import { useSpending } from '../../context/SpendingContext'
+
 import { Container } from '../../components/Container'
 import { Infos } from '../../components/Infos'
 import List from '../../components/List/List'
 
 const SpendingList = () => {
+  const spending = useSpending()
+
   return (
     <Container.UlList>
-      <List>
-        <Container.Finance>
-          <Infos.Finance>
-            <Infos.Values value="teste" />
+      {spending &&
+        spending.spending.map((spend) => (
+          <List>
+            <Container.Finance>
+              <Infos.Finance>
+                <Infos.Values value={spend.name} />
 
-            <Infos.Values name="Estabelecimento / Serviço: " value="teste" />
+                <Infos.Values
+                  name="Estabelecimento / Serviço: "
+                  value={spend.establishmentsOrServices}
+                />
 
-            <Infos.Values value="teste" />
-          </Infos.Finance>
+                <Infos.Values value="faltou a categoria na req ç.ç" />
+              </Infos.Finance>
 
-          <Infos.Finance>
-            <Infos.Values value="10 x 10.00" />
+              <Infos.Finance>
+                <Infos.Values value={`${spend.value}`} />
 
-            <Infos.Values value="25/08/2023" />
-          </Infos.Finance>
-        </Container.Finance>
-      </List>
+                <Infos.Values
+                  value={`${new Date(spend.date).toLocaleDateString()}`}
+                />
+              </Infos.Finance>
+            </Container.Finance>
+          </List>
+        ))}
     </Container.UlList>
   )
 }

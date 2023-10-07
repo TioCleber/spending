@@ -1,7 +1,5 @@
-import { ChangeEvent, useState } from 'react'
-import { useAxios } from './../../../hooks/useAxios'
-import { useService } from './../../../hooks/useService'
 import { useCategories } from './../../../context/CategoriesContext'
+import { useAddExpenses } from '../../../hooks/useAddExpenses'
 
 import { Modal } from './../../../components/Modal'
 import { Icons } from './../../../components/Icons'
@@ -11,53 +9,16 @@ import { Select } from '../../../components/Select'
 
 import './../../../styles/add.css'
 
-interface Expenses {
-  name: string
-  installments?: number
-  missingInstallments?: number
-  payday?: string
-  establishmentsOrServices: string
-  value: number
-  date: string
-  category?: string
-}
-
-const INITIAL_VALUE = {
-  name: '',
-  establishmentsOrServices: '',
-  value: 0,
-  date: '',
-}
-
 const FinancesAddExpenses = () => {
-  const { post, loading } = useAxios()
-  const { url, headers } = useService()
-  const [expenses, setExpenses] = useState<Expenses>(INITIAL_VALUE)
+  const {
+    expenses,
+    handleExpenses,
+    handleAddExpenses,
+    loading,
+    error,
+    success,
+  } = useAddExpenses()
   const { expensesCategories } = useCategories()
-
-  const handleClick = () => {
-    const body = {
-      name: expenses.name,
-      date: new Date(expenses.date).toISOString(),
-      establishmentsOrServices: expenses.establishmentsOrServices,
-      value: Number(expenses.value),
-      category: expenses.category,
-      installments: expenses.installments,
-      missingInstallments: expenses.missingInstallments,
-      payday: expenses.payday,
-    }
-
-    post({ url: `${url}v1/pvt/recurring-expenses`, headers, body })
-  }
-
-  const handleChange = (
-    e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
-  ) => {
-    setExpenses((oldValue) => ({
-      ...oldValue,
-      [e.target.name]: e.target.value,
-    }))
-  }
 
   const categories = expensesCategories.map((category) => ({
     name: category.name,
@@ -82,7 +43,7 @@ const FinancesAddExpenses = () => {
             <Inputs.Wrapper>
               <Inputs.Label label="Nome" />
               <Inputs.Action
-                onChange={handleChange}
+                onChange={handleExpenses}
                 value={expenses.name}
                 name="name"
               />
@@ -91,7 +52,7 @@ const FinancesAddExpenses = () => {
             <Inputs.Wrapper>
               <Inputs.Label label="Estabelecimento ou Serviço" />
               <Inputs.Action
-                onChange={handleChange}
+                onChange={handleExpenses}
                 value={expenses.establishmentsOrServices}
                 name="establishmentsOrServices"
               />
@@ -108,6 +69,7 @@ const FinancesAddExpenses = () => {
                 {categories &&
                   categories.map((category) => (
                     <Select.MenuItem
+                      key={category.id}
                       label={category.name}
                       value={category.name}
                     />
@@ -116,7 +78,7 @@ const FinancesAddExpenses = () => {
                 <Inputs.Wrapper>
                   <Inputs.Action
                     placeholder="Preencha uma Categoria"
-                    onChange={handleChange}
+                    onChange={handleExpenses}
                     value={expenses.category ?? ''}
                     name="category"
                   />
@@ -129,7 +91,7 @@ const FinancesAddExpenses = () => {
             <Inputs.Wrapper>
               <Inputs.Label label="Data" />
               <Inputs.Action
-                onChange={handleChange}
+                onChange={handleExpenses}
                 value={expenses.date}
                 name="date"
               />
@@ -138,7 +100,7 @@ const FinancesAddExpenses = () => {
             <Inputs.Wrapper>
               <Inputs.Label label="Dia de pagamento" />
               <Inputs.Action
-                onChange={handleChange}
+                onChange={handleExpenses}
                 value={expenses.payday ?? ''}
                 name="payday"
               />
@@ -147,7 +109,7 @@ const FinancesAddExpenses = () => {
             <Inputs.Wrapper>
               <Inputs.Label label="Valor" />
               <Inputs.Action
-                onChange={handleChange}
+                onChange={handleExpenses}
                 value={expenses.value}
                 name="value"
               />
@@ -158,7 +120,7 @@ const FinancesAddExpenses = () => {
             <Inputs.Wrapper>
               <Inputs.Label label="Parcelas" />
               <Inputs.Action
-                onChange={handleChange}
+                onChange={handleExpenses}
                 value={expenses.installments ?? ''}
                 name="installments"
               />
@@ -167,7 +129,7 @@ const FinancesAddExpenses = () => {
             <Inputs.Wrapper>
               <Inputs.Label label="Parcelas faltantes" />
               <Inputs.Action
-                onChange={handleChange}
+                onChange={handleExpenses}
                 value={expenses.missingInstallments ?? ''}
                 name="missingInstallments"
               />
@@ -179,7 +141,7 @@ const FinancesAddExpenses = () => {
               cancelar
             </Modal.Trigger>
 
-            <Buttons.Action disabled={loading} onClick={handleClick}>
+            <Buttons.Action disabled={loading} onClick={handleAddExpenses}>
               {loading ? <Icons.Loading size={24} /> : 'Adicionar'}
             </Buttons.Action>
           </Buttons.Wrapper>

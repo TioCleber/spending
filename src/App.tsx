@@ -30,9 +30,20 @@ const App = () => {
           />
           <Route
             path="/recurring-expenses"
-            element={<RecurringExpenses.Page />}
+            element={
+              <Context.RecurringExpenses>
+                <RecurringExpenses.Page />
+              </Context.RecurringExpenses>
+            }
           />
-          <Route path="/spending" element={<Spending.Page />} />
+          <Route
+            path="/spending"
+            element={
+              <Context.Spending>
+                <Spending.Page />
+              </Context.Spending>
+            }
+          />
         </Routes>
       </main>
     </BrowserRouter>
