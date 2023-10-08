@@ -42,12 +42,13 @@ export const useAddExpenses = () => {
       establishmentsOrServices: expenses.establishmentsOrServices,
       value: Number(expenses.value),
       category: expenses.category,
-      installments: expenses.installments,
-      missingInstallments: expenses.missingInstallments,
+      installments: expenses.installments && Number(expenses.installments),
+      missingInstallments:
+        expenses.missingInstallments && Number(expenses.missingInstallments),
       payday: expenses.payday,
     }
 
-    post({ url: `${url}/recurring-expenses`, body, headers })
+    post({ url: `${url}v1/pvt/recurring-expenses`, body, headers })
   }
 
   useEffect(() => {
