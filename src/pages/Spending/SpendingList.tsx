@@ -11,7 +11,7 @@ const SpendingList = () => {
     <Container.UlList>
       {spending &&
         spending.spending.map((spend) => (
-          <List>
+          <List key={spend.id}>
             <Container.Finance>
               <Infos.Finance>
                 <Infos.Values value={spend.name} />

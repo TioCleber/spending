@@ -1,6 +1,8 @@
 import { ChangeEvent, useEffect, useState } from 'react'
 import { useService } from './useService'
 import { useAxios } from './useAxios'
+import { useCategories } from '../context/CategoriesContext'
+import { SelectChangeEvent } from '@mui/material'
 
 interface Expenses {
   name: string
@@ -25,6 +27,12 @@ export const useAddExpenses = () => {
 
   const { url, headers } = useService()
   const { post, success, loading, error } = useAxios()
+  const { expensesCategories } = useCategories()
+
+  const categories = expensesCategories.map((category) => ({
+    value: category.name,
+    id: category.id,
+  }))
 
   const handleExpenses = (
     e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
@@ -35,17 +43,27 @@ export const useAddExpenses = () => {
     }))
   }
 
+  const handleCategoryRecurringExpenses = (e: SelectChangeEvent<any>) => {
+    setExpenses((oldValues) => ({ ...oldValues, category: e.target.value }))
+  }
+
   const handleAddExpenses = async () => {
+    const category = categories.find((cat) => cat.id === expenses.category)
+
+    const validateCategory = !category
+      ? { category: expenses.category }
+      : { categoriesId: expenses.category }
+
     const body = {
       name: expenses.name,
       date: new Date(expenses.date).toISOString(),
       establishmentsOrServices: expenses.establishmentsOrServices,
       value: Number(expenses.value),
-      category: expenses.category,
       installments: expenses.installments && Number(expenses.installments),
       missingInstallments:
         expenses.missingInstallments && Number(expenses.missingInstallments),
       payday: expenses.payday,
+      ...validateCategory,
     }
 
     post({ url: `${url}v1/pvt/recurring-expenses`, body, headers })
@@ -61,6 +79,8 @@ export const useAddExpenses = () => {
     expenses,
     handleExpenses,
     handleAddExpenses,
+    handleCategoryRecurringExpenses,
+    categories,
     loading,
     error,
     success,

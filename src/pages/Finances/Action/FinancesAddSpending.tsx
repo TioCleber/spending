@@ -1,5 +1,6 @@
 import { useCategories } from './../../../context/CategoriesContext'
 import { useAddSpending } from '../../../hooks/useAddSpending'
+import { useSelectItem } from '../../../hooks/useSelectItem'
 
 import { Modal } from './../../../components/Modal'
 import { Buttons } from './../../../components/Buttons'
@@ -21,7 +22,7 @@ const FinancesAddSpending = () => {
   } = useAddSpending()
 
   const categories = spendingCategories.map((category) => ({
-    name: category.name,
+    value: category.name,
     id: category.id,
   }))
 
@@ -63,27 +64,11 @@ const FinancesAddSpending = () => {
 
               <Select.Action
                 label="Categorias"
-                onChange={(e) => console.log(e)}
+                onChange={(e) => console.log(e.target.value)}
                 value={''}
-              >
-                {categories &&
-                  categories.map((category) => (
-                    <Select.MenuItem
-                      key={category.id}
-                      label={category.name}
-                      value={category.name}
-                    />
-                  ))}
-
-                <Inputs.Wrapper>
-                  <Inputs.Action
-                    placeholder="Preencha uma Categoria"
-                    onChange={handleSpending}
-                    value={spending.category ?? ''}
-                    name="category"
-                  />
-                </Inputs.Wrapper>
-              </Select.Action>
+                items={categories}
+                newItem
+              />
             </Select.Wrapper>
           </Inputs.Group>
 

@@ -34,7 +34,7 @@ const RecurringExpensesList = () => {
     return (
       <Container.UlList>
         {recurringExpenses.expenses?.recurringExpenses.map((exp, index) => (
-          <List>
+          <List key={exp.id}>
             <Container.Finance>
               <Infos.Finance>
                 <Infos.Values value={exp.name} />

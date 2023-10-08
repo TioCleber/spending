@@ -1,4 +1,3 @@
-import { useCategories } from './../../../context/CategoriesContext'
 import { useAddExpenses } from '../../../hooks/useAddExpenses'
 
 import { Modal } from './../../../components/Modal'
@@ -12,18 +11,16 @@ import './../../../styles/add.css'
 const FinancesAddExpenses = () => {
   const {
     expenses,
+    categories,
     handleExpenses,
     handleAddExpenses,
+    handleCategoryRecurringExpenses,
     loading,
     error,
     success,
   } = useAddExpenses()
-  const { expensesCategories } = useCategories()
 
-  const categories = expensesCategories.map((category) => ({
-    name: category.name,
-    id: category.id,
-  }))
+  console.log(expenses)
 
   return (
     <>
@@ -63,27 +60,11 @@ const FinancesAddExpenses = () => {
 
               <Select.Action
                 label="Categorias"
-                onChange={(e) => console.log(e)}
-                value={''}
-              >
-                {categories &&
-                  categories.map((category) => (
-                    <Select.MenuItem
-                      key={category.id}
-                      label={category.name}
-                      value={category.name}
-                    />
-                  ))}
-
-                <Inputs.Wrapper>
-                  <Inputs.Action
-                    placeholder="Preencha uma Categoria"
-                    onChange={handleExpenses}
-                    value={expenses.category ?? ''}
-                    name="category"
-                  />
-                </Inputs.Wrapper>
-              </Select.Action>
+                onChange={handleCategoryRecurringExpenses}
+                value={expenses.category ?? ''}
+                items={categories}
+                newItem
+              />
             </Select.Wrapper>
           </Inputs.Group>
 
