@@ -1,6 +1,4 @@
-import { useCategories } from './../../../context/CategoriesContext'
 import { useAddSpending } from '../../../hooks/useAddSpending'
-import { useSelectItem } from '../../../hooks/useSelectItem'
 
 import { Modal } from './../../../components/Modal'
 import { Buttons } from './../../../components/Buttons'
@@ -11,20 +9,16 @@ import { Select } from '../../../components/Select'
 import './../../../styles/add.css'
 
 const FinancesAddSpending = () => {
-  const { spendingCategories } = useCategories()
   const {
     spending,
+    categories,
     handleSpending,
     handleAddSpending,
+    handleCategoryRecurringSpending,
     loading,
     error,
     success,
   } = useAddSpending()
-
-  const categories = spendingCategories.map((category) => ({
-    value: category.name,
-    id: category.id,
-  }))
 
   return (
     <>
@@ -64,8 +58,8 @@ const FinancesAddSpending = () => {
 
               <Select.Action
                 label="Categorias"
-                onChange={(e) => console.log(e.target.value)}
-                value={''}
+                onChange={handleCategoryRecurringSpending}
+                value={spending.category ?? ''}
                 items={categories}
                 newItem
               />

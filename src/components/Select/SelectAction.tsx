@@ -5,9 +5,9 @@ import { MenuItem, Select, SelectChangeEvent } from '@mui/material'
 import { Inputs } from '../Inputs'
 
 interface SelectActionProps {
-  value: any
+  value: string | number
   onChange: (event: SelectChangeEvent<any>, child: ReactNode) => void
-  label: any
+  label: string
   items: Items[]
   newItem?: boolean
 }
