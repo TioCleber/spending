@@ -3,7 +3,7 @@ import Pagination from '../../components/Pagination/Pagination'
 
 const SpendingPage = () => {
   return (
-    <section className="section-spending-expenses">
+    <section className="section-spending-expenses container-page">
       <Spending.Content />
 
       <Pagination

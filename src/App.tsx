@@ -15,7 +15,7 @@ const App = () => {
     <BrowserRouter>
       <Header />
 
-      <main className="page container-page">
+      <main className="page">
         <Routes>
           <Route path="/" element={<Login.Page />} />
           <Route

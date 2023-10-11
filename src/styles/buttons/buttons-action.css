@@ -5,6 +5,8 @@
   width: 100%;
   height: 2.375rem;
   background: transparent;
+  color: #0a3d0a;
+  font-weight: 700;
 }
 
 .button.text,

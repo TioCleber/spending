@@ -3,7 +3,7 @@ import Pagination from '../../components/Pagination/Pagination'
 
 const RecurringExpensesPage = () => {
   return (
-    <section className="section-recurring-expenses">
+    <section className="section-recurring-expenses container-page">
       <RecurringExpenses.Content />
 
       <Pagination

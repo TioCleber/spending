@@ -4,6 +4,8 @@ import { LoadingIcon } from './LoadingIcon'
 import { VisibilityOffIcon } from './VisibilityOffIcon'
 import { VisibilityOnIcon } from './VisibilityOnIcon'
 
+import './../../styles/icons/icons.css'
+
 export const Icons = {
   Close: CloseIcon,
   Add: AddIcon,

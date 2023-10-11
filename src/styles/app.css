@@ -23,5 +23,14 @@ body,
   padding: 0 1rem 1rem;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #0a3d0a;
+}
+
 @media screen and (min-width: 64rem) {
 }

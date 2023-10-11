@@ -8,3 +8,9 @@ export const formatCurrency = (value: number) => {
 export const formatStringCurrency = (value: number) => {
   return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
 }
+
+export const formatCurrencyToFloat = (value: string) => {
+  const floatValue = parseFloat(value.replace(/[$,]/g, ''))
+
+  return floatValue
+}

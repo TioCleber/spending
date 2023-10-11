@@ -7,6 +7,15 @@
   margin-top: 0.5rem;
 }
 
+.container-input .input-label {
+  color: #0a3d0a !important;
+}
+
+.container-input .input-action:hover::before,
+.container-input .input-action:hover::after {
+  border-bottom: 0.125rem solid #0a3d0a !important;
+}
+
 @media screen and (min-width: 64rem) {
   .container-input + .container-input,
   .inputs-group .container-input + .container-select {

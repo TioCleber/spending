@@ -4,8 +4,7 @@
 
 .section-login,
 .login,
-.institutional-login,
-.container-login {
+.institutional-login {
   width: 100%;
   height: 100%;
 }
@@ -21,8 +20,9 @@
 }
 
 .container-login {
-  max-height: 22.8125rem;
+  width: 100%;
   max-width: 33.125rem;
+  height: auto;
   padding: 1rem;
 }
 
@@ -33,5 +33,9 @@
 @media screen and (min-width: 64rem) {
   .institutional-login {
     display: block;
+    background-image: url('https://ddgimgs-f43e.kxcdn.com/3048651/hbqfoa_666b5f0d961ed3d1a150aad50d81dd67840f3238.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: green;
   }
 }

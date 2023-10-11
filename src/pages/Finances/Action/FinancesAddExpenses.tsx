@@ -7,6 +7,7 @@ import { Buttons } from './../../../components/Buttons'
 import { Select } from '../../../components/Select'
 
 import './../../../styles/add.css'
+import { formatCurrency } from '../../../utils/formatCurrency'
 
 const FinancesAddExpenses = () => {
   const {
@@ -19,8 +20,6 @@ const FinancesAddExpenses = () => {
     error,
     success,
   } = useAddExpenses()
-
-  console.log(expenses)
 
   return (
     <>
@@ -91,7 +90,7 @@ const FinancesAddExpenses = () => {
               <Inputs.Label label="Valor" />
               <Inputs.Action
                 onChange={handleExpenses}
-                value={expenses.value}
+                value={formatCurrency(expenses.value)}
                 name="value"
               />
             </Inputs.Wrapper>

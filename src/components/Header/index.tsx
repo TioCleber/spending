@@ -1,12 +1,8 @@
 import { AppBar, Box, Button, Toolbar, Typography } from '@mui/material'
-import { useEffect } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 export const Header = () => {
   const locations = ['/']
-  const location = useLocation()
-
-  useEffect(() => {}, [location])
 
   if (locations.includes(window.location.pathname)) {
     return <></>
