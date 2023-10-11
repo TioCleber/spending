@@ -23,7 +23,11 @@ const App = () => {
             element={
               <Context.Profile>
                 <Context.Categories>
-                  <Finances.Page />
+                  <Context.RecurringExpenses>
+                    <Context.Spending>
+                      <Finances.Page />
+                    </Context.Spending>
+                  </Context.RecurringExpenses>
                 </Context.Categories>
               </Context.Profile>
             }

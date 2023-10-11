@@ -11,6 +11,7 @@ interface RecurringExpensesContextProps {
   error: string
   success: boolean
   expenses: Expenses | null
+  handlePagination: (toPage: number) => void
 }
 
 interface Expenses {
@@ -29,10 +30,9 @@ type ExpensesFinances = {
   establishmentsOrServices: string
   value: number
   date: string
-  user: {
-    email: string
-    firstName: string
-    lastName: string
+  category: {
+    id: string
+    name: string
   }
 }
 
@@ -45,20 +45,31 @@ export const RecurringExpensesContextProvider = ({
   const [recurringExpenses, setRecurringExpenses] = useState<Expenses | null>(
     null
   )
+  const [page, setPage] = useState(1)
   const { url, headers } = useService()
   const { get, loading, error, success } = useAxios()
 
   useEffect(() => {
     get({
-      url: `${url}v1/pvt/recurring-expenses`,
+      url: `${url}v1/pvt/recurring-expenses?fields=id,name,installments,missingInstallments,establishmentsOrServices,value,payday,date,category.id,category.name&perPage=4&page=${page}`,
       headers,
       data: setRecurringExpenses,
     })
   }, [])
 
+  const handlePagination = (toPage: number) => {
+    setPage(toPage)
+  }
+
   return (
     <RecurringExpensesContext.Provider
-      value={{ expenses: recurringExpenses, error, loading, success }}
+      value={{
+        expenses: recurringExpenses,
+        error,
+        loading,
+        success,
+        handlePagination,
+      }}
     >
       {children}
     </RecurringExpensesContext.Provider>

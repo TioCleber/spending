@@ -44,7 +44,7 @@ const RecurringExpensesList = () => {
                   value={exp.establishmentsOrServices}
                 />
 
-                <Infos.Values value="faltou a categoria na request ç.ç" />
+                <Infos.Values value={exp?.category?.name ?? '-'} />
               </Infos.Finance>
 
               <Infos.Finance>
@@ -52,7 +52,7 @@ const RecurringExpensesList = () => {
 
                 <Infos.Values value={missingInstallments(index)} />
 
-                <Infos.Values value={exp.payday} />
+                <Infos.Values value={'dia de pagamento ' + exp.payday} />
               </Infos.Finance>
             </Container.Finance>
           </List>

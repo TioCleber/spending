@@ -9,8 +9,8 @@ const SpendingList = () => {
 
   return (
     <Container.UlList>
-      {spending &&
-        spending.spending.map((spend) => (
+      {spending?.spending?.spending &&
+        spending?.spending?.spending.map((spend) => (
           <List key={spend.id}>
             <Container.Finance>
               <Infos.Finance>
@@ -21,7 +21,7 @@ const SpendingList = () => {
                   value={spend.establishmentsOrServices}
                 />
 
-                <Infos.Values value="faltou a categoria na req ç.ç" />
+                <Infos.Values value={spend?.category?.name ?? '-'} />
               </Infos.Finance>
 
               <Infos.Finance>
