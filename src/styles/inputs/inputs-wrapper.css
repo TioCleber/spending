@@ -12,7 +12,7 @@
 }
 
 .container-input .input-action:hover::before,
-.container-input .input-action:hover::after {
+.container-input .input-action::after {
   border-bottom: 0.125rem solid #0a3d0a !important;
 }
 
