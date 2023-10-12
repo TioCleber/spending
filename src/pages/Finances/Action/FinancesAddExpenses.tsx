@@ -16,6 +16,7 @@ const FinancesAddExpenses = () => {
     handleExpenses,
     handleAddExpenses,
     handleCategoryRecurringExpenses,
+    handleExpensesValue,
     loading,
     error,
     success,
@@ -69,10 +70,11 @@ const FinancesAddExpenses = () => {
 
           <Inputs.Group>
             <Inputs.Wrapper>
-              <Inputs.Label label="Data" />
+              <Inputs.Label label="" />
               <Inputs.Action
                 onChange={handleExpenses}
                 value={expenses.date}
+                type="date"
                 name="date"
               />
             </Inputs.Wrapper>
@@ -89,8 +91,8 @@ const FinancesAddExpenses = () => {
             <Inputs.Wrapper>
               <Inputs.Label label="Valor" />
               <Inputs.Action
-                onChange={handleExpenses}
-                value={formatCurrency(expenses.value)}
+                onChange={handleExpensesValue}
+                value={formatCurrency(Number(expenses.value))}
                 name="value"
               />
             </Inputs.Wrapper>

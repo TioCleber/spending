@@ -6,7 +6,7 @@ import './../../styles/inputs/inputs-action.css'
 interface InputsActionProps {
   onChange: ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement>
   value: string | number
-  type?: 'text' | 'password'
+  type?: 'text' | 'password' | 'date'
   endAdornment?: ReactNode
   placeholder?: string
   name?: string

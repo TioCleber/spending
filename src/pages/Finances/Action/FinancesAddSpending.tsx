@@ -7,6 +7,7 @@ import { Inputs } from './../../../components/Inputs'
 import { Select } from '../../../components/Select'
 
 import './../../../styles/add.css'
+import { formatCurrency } from '../../../utils/formatCurrency'
 
 const FinancesAddSpending = () => {
   const {
@@ -15,6 +16,7 @@ const FinancesAddSpending = () => {
     handleSpending,
     handleAddSpending,
     handleCategoryRecurringSpending,
+    handleSpendingValue,
     loading,
     error,
     success,
@@ -68,10 +70,11 @@ const FinancesAddSpending = () => {
 
           <Inputs.Group>
             <Inputs.Wrapper>
-              <Inputs.Label label="Data" />
+              <Inputs.Label label="" />
               <Inputs.Action
                 onChange={handleSpending}
                 value={spending.date}
+                type="date"
                 name="date"
               />
             </Inputs.Wrapper>
@@ -79,8 +82,8 @@ const FinancesAddSpending = () => {
             <Inputs.Wrapper>
               <Inputs.Label label="Valor" />
               <Inputs.Action
-                onChange={handleSpending}
-                value={spending.value}
+                onChange={handleSpendingValue}
+                value={formatCurrency(Number(spending.value))}
                 name="value"
               />
             </Inputs.Wrapper>

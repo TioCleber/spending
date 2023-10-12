@@ -3,6 +3,10 @@ import { useService } from './useService'
 import { useAxios } from './useAxios'
 import { useCategories } from '../context/CategoriesContext'
 import { SelectChangeEvent } from '@mui/material'
+import {
+  formatCurrency,
+  formatCurrencyToIntValue,
+} from '../utils/formatCurrency'
 
 interface Expenses {
   name: string
@@ -10,7 +14,7 @@ interface Expenses {
   missingInstallments?: number
   payday?: string
   establishmentsOrServices: string
-  value: number
+  value?: string
   date: string
   category?: string
 }
@@ -18,7 +22,6 @@ interface Expenses {
 const INITIAL_VALUE = {
   name: '',
   establishmentsOrServices: '',
-  value: 0,
   date: '',
 }
 
@@ -40,6 +43,15 @@ export const useAddExpenses = () => {
     setExpenses((oldValue) => ({
       ...oldValue,
       [e.target.name]: e.target.value,
+    }))
+  }
+
+  const handleExpensesValue = (
+    e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+  ) => {
+    setExpenses((oldValue) => ({
+      ...oldValue,
+      [e.target.name]: formatCurrencyToIntValue(e.target.value),
     }))
   }
 
@@ -80,6 +92,7 @@ export const useAddExpenses = () => {
     handleExpenses,
     handleAddExpenses,
     handleCategoryRecurringExpenses,
+    handleExpensesValue,
     categories,
     loading,
     error,

@@ -3,6 +3,7 @@ import { useService } from './useService'
 import { useAxios } from './useAxios'
 import { useCategories } from '../context/CategoriesContext'
 import { SelectChangeEvent } from '@mui/material'
+import { formatCurrencyToIntValue } from '../utils/formatCurrency'
 
 interface Spending {
   name: string
@@ -40,6 +41,15 @@ export const useAddSpending = () => {
     }))
   }
 
+  const handleSpendingValue = (
+    e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+  ) => {
+    setSpending((oldValue) => ({
+      ...oldValue,
+      [e.target.name]: formatCurrencyToIntValue(e.target.value),
+    }))
+  }
+
   const handleCategoryRecurringSpending = (e: SelectChangeEvent<any>) => {
     setSpending((oldValues) => ({ ...oldValues, category: e.target.value }))
   }
@@ -73,6 +83,7 @@ export const useAddSpending = () => {
     handleSpending,
     handleAddSpending,
     handleCategoryRecurringSpending,
+    handleSpendingValue,
     categories,
     loading,
     error,

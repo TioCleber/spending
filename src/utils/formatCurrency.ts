@@ -1,16 +1,22 @@
-export const formatCurrency = (value: number) => {
+export const formatCurrency = (value?: number) => {
+  if (!value) {
+    return ''
+  }
+
   return Intl.NumberFormat('pt-BR', {
     style: 'currency',
     currency: 'BRL',
-  }).format(value * 0.01 || 0)
+  }).format(value * 0.01)
 }
 
 export const formatStringCurrency = (value: number) => {
   return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
 }
 
-export const formatCurrencyToFloat = (value: string) => {
-  const floatValue = parseFloat(value.replace(/[$,]/g, ''))
+const getMoney = (str: string) => {
+  return parseInt(str.replace(/[\D]+/g, ''))
+}
 
-  return floatValue
+export const formatCurrencyToIntValue = (value: string) => {
+  return parseInt(value.replace(/[\D]+/g, ''))
 }
