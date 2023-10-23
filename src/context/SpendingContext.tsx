@@ -1,6 +1,7 @@
-import { createContext, useContext, useEffect, useState } from 'react'
+import { createContext, useCallback, useContext, useState } from 'react'
 import { useService } from '../hooks/useService'
-import { useAxios } from '../hooks/useAxios'
+import { useApi } from '../hooks/useApi'
+import { useQuery } from 'react-query'
 
 interface SpendingContextProviderProps {
   children: React.ReactNode
@@ -38,26 +39,40 @@ export const SpendingContext = createContext<SpendingContextProps | null>(null)
 export const SpendingContextProvider = ({
   children,
 }: SpendingContextProviderProps) => {
-  const [spending, setSpending] = useState<Spending | null>(null)
   const [page, setPage] = useState(1)
-  const { url, headers } = useService()
-  const { get, loading, error, success } = useAxios()
+  const { headers } = useService()
 
-  useEffect(() => {
-    get({
-      url: `${url}v1/pvt/spending?fields=id,name,establishmentsOrServices,value,date,category.id,category.name&perPage=4&page=${page}`,
-      headers,
-      data: setSpending,
-    })
+  const { api } = useApi()
+
+  const handleGetSpending = useCallback(async () => {
+    const response = await api.get<Spending>(
+      `/v1/pvt/spending?fields=id,name,establishmentsOrServices,value,date,category.id,category.name&perPage=4&page=${page}`,
+      { headers }
+    )
+
+    return response.data
   }, [page])
+
+  const { data, isLoading } = useQuery({
+    queryKey: ['spending'],
+    queryFn: handleGetSpending,
+  })
 
   const handlePagination = (toPage: number) => {
     setPage(toPage)
   }
 
+  console.log('data --> ', data)
+
   return (
     <SpendingContext.Provider
-      value={{ loading, error, success, spending, handlePagination }}
+      value={{
+        loading: isLoading,
+        error: '',
+        success: false,
+        spending: data ?? null,
+        handlePagination,
+      }}
     >
       {children}
     </SpendingContext.Provider>

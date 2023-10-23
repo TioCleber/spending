@@ -1,25 +1,25 @@
-import { useEffect, useState } from 'react'
+import { useCallback } from 'react'
 
 import { useService } from './useService'
-import { useAxios } from './useAxios'
 
 import { IProfile } from '../typings/profile'
+import { useQuery } from 'react-query'
+import { useApi } from './useApi'
 
 export const useGetProfile = () => {
-  const [profile, setProfile] = useState<IProfile | undefined | null>()
+  const { api } = useApi()
+  const { headers } = useService()
 
-  const { url, headers } = useService()
-  const { get, error } = useAxios()
+  const handleProfile = useCallback(async () => {
+    const response = await api.get<IProfile>('/v1/pvt/profile', { headers })
 
-  useEffect(() => {
-    get({ url: `${url}v1/pvt/profile`, headers, data: setProfile })
+    return response.data
   }, [])
 
-  useEffect(() => {
-    if (error) {
-      setProfile(null)
-    }
-  }, [error])
+  const { data, isError } = useQuery({
+    queryKey: ['profile'],
+    queryFn: handleProfile,
+  })
 
-  return { profile, error }
+  return { profile: data, error: isError }
 }

@@ -1,6 +1,7 @@
-import { createContext, useContext, useEffect, useState } from 'react'
+import { createContext, useCallback, useContext, useState } from 'react'
 import { useService } from '../hooks/useService'
-import { useAxios } from '../hooks/useAxios'
+import { useQuery } from 'react-query'
+import { useApi } from '../hooks/useApi'
 
 interface RecurringExpensesContextProviderProps {
   children: React.ReactNode
@@ -42,20 +43,24 @@ export const RecurringExpensesContext =
 export const RecurringExpensesContextProvider = ({
   children,
 }: RecurringExpensesContextProviderProps) => {
-  const [recurringExpenses, setRecurringExpenses] = useState<Expenses | null>(
-    null
-  )
   const [page, setPage] = useState(1)
-  const { url, headers } = useService()
-  const { get, loading, error, success } = useAxios()
 
-  useEffect(() => {
-    get({
-      url: `${url}v1/pvt/recurring-expenses?fields=id,name,installments,missingInstallments,establishmentsOrServices,value,payday,date,category.id,category.name&perPage=4&page=${page}`,
-      headers,
-      data: setRecurringExpenses,
-    })
-  }, [])
+  const { headers } = useService()
+  const { api } = useApi()
+
+  const handleGetRecurringExpenses = useCallback(async () => {
+    const response = await api.get<Expenses>(
+      `v1/pvt/recurring-expenses?fields=id,name,installments,missingInstallments,establishmentsOrServices,value,payday,date,category.id,category.name&perPage=4&page=${page}`,
+      { headers }
+    )
+
+    return response.data
+  }, [page])
+
+  const { data, isLoading } = useQuery({
+    queryKey: ['recurring-expenses'],
+    queryFn: handleGetRecurringExpenses,
+  })
 
   const handlePagination = (toPage: number) => {
     setPage(toPage)
@@ -64,10 +69,10 @@ export const RecurringExpensesContextProvider = ({
   return (
     <RecurringExpensesContext.Provider
       value={{
-        expenses: recurringExpenses,
-        error,
-        loading,
-        success,
+        expenses: data ?? null,
+        error: '',
+        loading: isLoading,
+        success: false,
         handlePagination,
       }}
     >

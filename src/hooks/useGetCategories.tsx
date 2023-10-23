@@ -1,22 +1,28 @@
-import { useEffect, useState } from 'react'
+import { useCallback } from 'react'
 
 import { useService } from './useService'
-import { useAxios } from './useAxios'
 
 import { Categories } from '../typings/categories'
 import { INITIAL_CATEGORIES_VALUES } from '../constants/categories'
+import { useQuery } from 'react-query'
+import { useApi } from './useApi'
 
 export const useGetCategories = () => {
-  const [categories, setCategories] = useState<Categories>(
-    INITIAL_CATEGORIES_VALUES
-  )
-  
-  const { url, headers } = useService()
-  const { get } = useAxios()
+  const { headers } = useService()
+  const { api } = useApi()
 
-  useEffect(() => {
-    get({ url: `${url}v1/pvt/categories`, headers, data: setCategories })
+  const handleGetCategories = useCallback(async () => {
+    const response = await api.get<Categories>('/v1/pvt/categories', {
+      headers,
+    })
+
+    return response.data
   }, [])
 
-  return { categories }
+  const { data } = useQuery({
+    queryKey: ['categories'],
+    queryFn: handleGetCategories,
+  })
+
+  return { categories: data ?? INITIAL_CATEGORIES_VALUES }
 }
