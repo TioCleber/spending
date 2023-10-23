@@ -17,7 +17,7 @@ export const useGetCategories = () => {
     })
 
     return response.data
-  }, [])
+  }, [api, headers])
 
   const { data } = useQuery({
     queryKey: ['categories'],

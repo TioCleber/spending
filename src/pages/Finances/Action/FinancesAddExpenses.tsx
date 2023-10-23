@@ -5,9 +5,9 @@ import { Icons } from './../../../components/Icons'
 import { Inputs } from './../../../components/Inputs'
 import { Buttons } from './../../../components/Buttons'
 import { Select } from '../../../components/Select'
+import { formatCurrency } from '../../../utils/formatCurrency'
 
 import './../../../styles/add.css'
-import { formatCurrency } from '../../../utils/formatCurrency'
 
 const FinancesAddExpenses = () => {
   const {

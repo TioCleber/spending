@@ -14,7 +14,7 @@ export const useGetProfile = () => {
     const response = await api.get<IProfile>('/v1/pvt/profile', { headers })
 
     return response.data
-  }, [])
+  }, [api, headers])
 
   const { data, isError } = useQuery({
     queryKey: ['profile'],

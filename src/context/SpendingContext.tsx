@@ -51,7 +51,7 @@ export const SpendingContextProvider = ({
     )
 
     return response.data
-  }, [page])
+  }, [api, headers, page])
 
   const { data, isLoading } = useQuery({
     queryKey: ['spending'],

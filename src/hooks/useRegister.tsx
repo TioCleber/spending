@@ -1,6 +1,6 @@
-import { ChangeEvent, useEffect, useState } from 'react'
-import { useAxios } from './useAxios'
-import { useService } from './useService'
+import { ChangeEvent, useCallback, useState } from 'react'
+import { useMutation } from 'react-query'
+import { useApi } from './useApi'
 
 interface Register {
   firstName: string
@@ -20,43 +20,50 @@ const INITIAL_VALUE = {
 
 export const useRegister = () => {
   const [register, setRegister] = useState<Register>(INITIAL_VALUE)
-  const [data, setData] = useState()
-  const { loading, error, post, success } = useAxios()
-  const { url } = useService()
+  const { api } = useApi()
 
-  const body = {
-    email: register.email,
-    firstName: register.firstName,
-    lastName: register.lastName,
-    password: register.password,
-  }
+  const handleData = useCallback(
+    (e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+      setRegister((oldValue) => ({
+        ...oldValue,
+        [e.target.name]: e.target.value,
+      }))
+    },
+    []
+  )
 
-  const handleData = (
-    e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
-  ) => {
-    setRegister((oldValue) => ({
-      ...oldValue,
-      [e.target.name]: e.target.value,
-    }))
-  }
-
-  const handleRegister = async () => {
-    await post({ body: body, url: `${url}v1/pub/users`, data: setData })
-  }
-
-  useEffect(() => {
-    if (success) {
-      setRegister(INITIAL_VALUE)
+  const handleRegister = useCallback(async () => {
+    const body = {
+      email: register.email,
+      firstName: register.firstName,
+      lastName: register.lastName,
+      password: register.password,
     }
-  }, [success])
+
+    const response = await api.post('/v1/pub/users', body)
+
+    const data = response.data
+
+    setRegister(INITIAL_VALUE)
+
+    return data
+  }, [api, register])
+
+  const { mutate, isLoading, isSuccess, error } = useMutation<any, any>({
+    mutationKey: ['create-users'],
+    mutationFn: handleRegister,
+  })
+
+  const handleMutationRegister = useCallback(() => {
+    mutate()
+  }, [mutate])
 
   return {
     register,
     handleData,
-    handleRegister,
-    loading,
+    handleRegister: handleMutationRegister,
+    loading: isLoading,
     error,
-    data,
-    success,
+    success: isSuccess,
   }
 }

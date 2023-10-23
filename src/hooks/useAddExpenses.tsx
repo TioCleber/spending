@@ -1,12 +1,12 @@
-import { ChangeEvent, useEffect, useState } from 'react'
+import { ChangeEvent, useCallback, useMemo, useState } from 'react'
 import { useService } from './useService'
-import { useAxios } from './useAxios'
 import { useCategories } from '../context/CategoriesContext'
 import { SelectChangeEvent } from '@mui/material'
-import {
-  formatCurrency,
-  formatCurrencyToIntValue,
-} from '../utils/formatCurrency'
+import { formatCurrencyToIntValue } from '../utils/formatCurrency'
+import { useApi } from './useApi'
+import { useMutation } from 'react-query'
+import { AxiosError } from 'axios'
+import { ErrorData } from '../typings/error'
 
 interface Expenses {
   name: string
@@ -28,38 +28,45 @@ const INITIAL_VALUE = {
 export const useAddExpenses = () => {
   const [expenses, setExpenses] = useState<Expenses>(INITIAL_VALUE)
 
-  const { url, headers } = useService()
-  const { post, success, loading, error } = useAxios()
+  const { headers } = useService()
+  const { api } = useApi()
   const { expensesCategories } = useCategories()
 
-  const categories = expensesCategories.map((category) => ({
-    value: category.name,
-    id: category.id,
-  }))
-
-  const handleExpenses = (
-    e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
-  ) => {
-    setExpenses((oldValue) => ({
-      ...oldValue,
-      [e.target.name]: e.target.value,
+  const categories = useMemo(() => {
+    return expensesCategories.map((category) => ({
+      value: category.name,
+      id: category.id,
     }))
-  }
+  }, [expensesCategories])
 
-  const handleExpensesValue = (
-    e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
-  ) => {
-    setExpenses((oldValue) => ({
-      ...oldValue,
-      [e.target.name]: formatCurrencyToIntValue(e.target.value),
-    }))
-  }
+  const handleExpenses = useCallback(
+    (e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+      setExpenses((oldValue) => ({
+        ...oldValue,
+        [e.target.name]: e.target.value,
+      }))
+    },
+    []
+  )
 
-  const handleCategoryRecurringExpenses = (e: SelectChangeEvent<any>) => {
-    setExpenses((oldValues) => ({ ...oldValues, category: e.target.value }))
-  }
+  const handleExpensesValue = useCallback(
+    (e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+      setExpenses((oldValue) => ({
+        ...oldValue,
+        [e.target.name]: formatCurrencyToIntValue(e.target.value),
+      }))
+    },
+    []
+  )
 
-  const handleAddExpenses = async () => {
+  const handleCategoryRecurringExpenses = useCallback(
+    (e: SelectChangeEvent<any>) => {
+      setExpenses((oldValues) => ({ ...oldValues, category: e.target.value }))
+    },
+    []
+  )
+
+  const handleAddExpenses = useCallback(async () => {
     const category = categories.find((cat) => cat.id === expenses.category)
 
     const validateCategory = !category
@@ -78,24 +85,36 @@ export const useAddExpenses = () => {
       ...validateCategory,
     }
 
-    post({ url: `${url}v1/pvt/recurring-expenses`, body, headers })
-  }
+    const response = await api.post('/v1/pvt/recurring-expenses', body, {
+      headers,
+    })
 
-  useEffect(() => {
-    if (success) {
-      setExpenses(INITIAL_VALUE)
-    }
-  }, [success])
+    setExpenses(INITIAL_VALUE)
+
+    return response.data
+  }, [api, categories, headers, expenses])
+
+  const { mutate, isLoading, isSuccess, error } = useMutation<
+    any,
+    AxiosError<ErrorData>
+  >({
+    mutationKey: ['create-recurring-expenses'],
+    mutationFn: handleAddExpenses,
+  })
+
+  const handleMutationAddExpenses = useCallback(() => {
+    mutate()
+  }, [mutate])
 
   return {
     expenses,
     handleExpenses,
-    handleAddExpenses,
+    handleAddExpenses: handleMutationAddExpenses,
     handleCategoryRecurringExpenses,
     handleExpensesValue,
     categories,
-    loading,
+    loading: isLoading,
     error,
-    success,
+    success: isSuccess,
   }
 }
