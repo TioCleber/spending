@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import './../../../styles/finances/finances-title.css'
 
 interface FinancesProfileTitleProps {
@@ -16,4 +17,4 @@ const FinancesProfileTitle = ({
   )
 }
 
-export default FinancesProfileTitle
+export default memo(FinancesProfileTitle)

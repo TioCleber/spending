@@ -58,7 +58,7 @@ export const RecurringExpensesContextProvider = ({
   }, [api, headers, page])
 
   const { data, isLoading } = useQuery({
-    queryKey: ['recurring-expenses'],
+    queryKey: ['recurring-expenses', page],
     queryFn: handleGetRecurringExpenses,
   })
 

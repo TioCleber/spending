@@ -1,3 +1,5 @@
+import { memo } from 'react'
+
 interface FinancesTextProps {
   text: string | number
 }
@@ -10,4 +12,4 @@ const FinancesText = ({ text }: FinancesTextProps) => {
   )
 }
 
-export default FinancesText
+export default memo(FinancesText)

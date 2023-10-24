@@ -54,15 +54,13 @@ export const SpendingContextProvider = ({
   }, [api, headers, page])
 
   const { data, isLoading } = useQuery({
-    queryKey: ['spending'],
+    queryKey: ['spending', page],
     queryFn: handleGetSpending,
   })
 
   const handlePagination = (toPage: number) => {
     setPage(toPage)
   }
-
-  console.log('data --> ', data)
 
   return (
     <SpendingContext.Provider
