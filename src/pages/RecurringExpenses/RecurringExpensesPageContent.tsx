@@ -1,6 +1,6 @@
 import { RecurringExpenses } from './'
 import { Container } from '../../components/Container/'
-import { ReactNode } from 'react'
+import { ReactNode, memo } from 'react'
 
 interface RecurringExpensesPageContentProps {
   children?: ReactNode
@@ -18,4 +18,4 @@ const RecurringExpensesPageContent = ({
   )
 }
 
-export default RecurringExpensesPageContent
+export default memo(RecurringExpensesPageContent)

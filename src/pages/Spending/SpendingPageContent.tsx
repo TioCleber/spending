@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import { ReactNode, memo } from 'react'
 import { Spending } from './'
 import { Container } from '../../components/Container/'
 
@@ -16,4 +16,4 @@ const SpendingPageContent = ({ children }: SpendingPageContentProps) => {
   )
 }
 
-export default SpendingPageContent
+export default memo(SpendingPageContent)
